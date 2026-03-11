@@ -191,6 +191,7 @@ T012 [P] ─────── impl Logo ────────────┘
 - [x] T023 [P] Fix hero text: add `tracking-[0.5px] lg:leading-[40px]`, fix content to design spec ("Bắt đầu hành trình..."), fix ROOT FURTHER alt + desktop max-w | src/app/(auth)/login/page.tsx
 - [x] T024 [P] Fix LoginButton: `rounded-full` → `rounded-lg`, `px-5` → `px-6`, `disabled:opacity-70` → `disabled:opacity-50`, add hover transform/shadow, add active states | src/components/auth/LoginButton.tsx
 - [x] T025 [P] Fix LanguageSelector: flag 20×14 → 24×24, chevron 12×12 → 24×24, `text-sm` → `text-base`, `gap-2` → `gap-1`, `px-3 py-2` → `p-4`, `rounded-lg` → `rounded`, add `tracking-[0.15px] leading-6` | src/components/auth/LanguageSelector.tsx
+- [x] T026 Fix footer text centering: Figma shows text centered at x:582 (center of 1440px); change footer `justify-between` → `justify-center`, add `text-center` to span | src/app/(auth)/login/page.tsx
 
 ---
 

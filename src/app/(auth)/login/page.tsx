@@ -89,7 +89,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <footer
         className="
           absolute bottom-0 left-0 right-0 z-[3]
-          flex items-center justify-between
+          flex items-center justify-center
           px-4 md:px-12 lg:px-[90px]
           py-6 lg:py-10
           border-t border-[#2E3940]
@@ -99,7 +99,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           className="
             font-[family-name:var(--font-montserrat-alt)] font-bold
             text-base leading-6 tracking-normal
-            text-white
+            text-white text-center
           "
         >
           Bản quyền thuộc về Sun* © 2025
