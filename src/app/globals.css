@@ -3,24 +3,28 @@
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+
+	/* Login page design tokens */
+	--color-bg-page: #00101a;
+	--color-btn-login: #ffea9e;
+	--color-header-bg: rgba(11, 15, 18, 0.8);
+	--color-divider: #2e3940;
+
+	/* Gradient overlays */
+	--gradient-left: linear-gradient(90deg, #00101a 35.63%, rgba(0, 19, 32, 0) 100%);
+	--gradient-bottom: linear-gradient(0deg, #00101a 22.48%, rgba(0, 19, 32, 0) 51.74%);
+	--gradient-bg-fallback: linear-gradient(135deg, #00101a 0%, #001f33 50%, #00101a 100%);
 }
 
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
+	--font-sans: var(--font-montserrat);
+	--font-alt: var(--font-montserrat-alt);
 }
 
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
 }
