@@ -27,8 +27,8 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-[2] flex flex-col items-start gap-[40px] lg:gap-[120px] px-4 md:px-10 lg:px-36 py-[100px] md:py-[120px] lg:py-24">
-        {/* ROOT FURTHER logo + Countdown section grouped together */}
+      <div className="relative z-[2] flex flex-col items-start gap-10 px-4 md:px-10 lg:px-36 py-[100px] md:py-[120px] lg:py-24">
+        {/* ROOT FURTHER logo + Countdown + Event Info grouped together */}
         <div className="flex flex-col items-start gap-4">
           <Image
             src="/images/root-further-logo.png"
@@ -39,10 +39,7 @@ export function HeroSection() {
             priority
           />
           <CountdownSection />
-        </div>
 
-        {/* Event Info + CTA */}
-        <div className="flex flex-col gap-8">
           {/* Event info block */}
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
             <div className="flex flex-col gap-1">
@@ -62,22 +59,22 @@ export function HeroSection() {
               </span>
             </div>
           </div>
+        </div>
 
-          {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/award-information"
-              className="inline-flex items-center justify-center bg-[#FFEA9E] text-[#00101A] font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:opacity-90 active:opacity-80 transition-opacity duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
-            >
-              ABOUT AWARDS
-            </Link>
-            <Link
-              href="/sun-kudos"
-              className="inline-flex items-center justify-center bg-[#FFEA9E]/10 border border-[#998C5F] text-white font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:bg-[#FFEA9E]/15 active:bg-[#FFEA9E]/20 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
-            >
-              ABOUT KUDOS
-            </Link>
-          </div>
+        {/* CTA buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link
+            href="/award-information"
+            className="inline-flex items-center justify-center bg-[#FFEA9E] text-[#00101A] font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:opacity-90 active:opacity-80 transition-opacity duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
+          >
+            ABOUT AWARDS
+          </Link>
+          <Link
+            href="/sun-kudos"
+            className="inline-flex items-center justify-center bg-[#FFEA9E]/10 border border-[#998C5F] text-white font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:bg-[#FFEA9E]/15 active:bg-[#FFEA9E]/20 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
+          >
+            ABOUT KUDOS
+          </Link>
         </div>
       </div>
     </section>

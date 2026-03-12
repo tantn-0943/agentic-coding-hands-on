@@ -168,6 +168,16 @@
 
 ---
 
+## Phase 11: Bug Fix — Hero Gap, Root Further Logo & Widget Button
+
+**Purpose**: Fix 3 remaining visual bugs: (1) Hero content gap was `gap-[40px] lg:gap-[120px]` but Figma `2167:9031` shows `gap: 40px` always; EventInfo block should be inside the top group with CountdownSection (gap-4), not grouped with CTA buttons. (2) `RootFurtherSection` was missing the ROOT FURTHER logo images above the description text. (3) Widget button showed "Menu" text instead of pen icon + "/" + kudos logo per Figma `5022:15169`.
+
+- [x] T037 Fix HeroSection.tsx: change outer flex gap to `gap-10` (40px, remove `lg:gap-[120px]`); move EventInfo block inside the top group sub-div alongside CountdownSection (gap-4 spacing) so layout matches Figma `2167:9031` and `2167:9034` | src/components/homepage/HeroSection.tsx
+- [x] T038 Add ROOT FURTHER logo to RootFurtherSection.tsx: download `3204:10155` (Root Text 189×67) and `3204:10154` (Further Text 290×67) PNGs to `public/images/`; add `<Image>` for both above description text, aligned side-by-side with `items-end gap-2` | src/components/homepage/RootFurtherSection.tsx, public/images/root-further-root-text.png, public/images/root-further-further-text.png
+- [x] T039 Fix WidgetButton.tsx: download pen icon SVG (`I5022:15169;214:3839;186:1763`, 24×24) and kudos logo SVG (`I5022:15169;214:3839;186:1766;214:3762`, 20×19) to `public/images/`; replace "Menu" text with `<Image pen-icon 24×24> "/" <Image kudos-logo 20×19>` layout | src/components/layout/WidgetButton.tsx, public/images/widget-pen-icon.svg, public/images/widget-kudos-logo.svg
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

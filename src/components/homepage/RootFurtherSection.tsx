@@ -1,6 +1,25 @@
+import Image from 'next/image'
+
 export function RootFurtherSection() {
   return (
     <section className="py-16 lg:py-24 px-4 md:px-10 lg:px-36 bg-[#00101A]" aria-label="Root Further">
+      {/* ROOT FURTHER logo */}
+      <div className="flex items-end gap-2 mb-8">
+        <Image
+          src="/images/root-further-root-text.png"
+          alt="Root"
+          width={189}
+          height={67}
+          className="object-contain"
+        />
+        <Image
+          src="/images/root-further-further-text.png"
+          alt="Further"
+          width={290}
+          height={67}
+          className="object-contain"
+        />
+      </div>
       <div className="max-w-4xl space-y-6 font-[family-name:var(--font-montserrat)] font-normal text-base text-white tracking-[0.5px] leading-relaxed">
         <p>
           Đứng trước bối cảnh thay đổi như vũ bão của thời đại AI và yêu cầu ngày càng cao từ khách hàng,
