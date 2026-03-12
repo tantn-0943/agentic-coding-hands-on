@@ -178,6 +178,14 @@
 
 ---
 
+## Phase 12: Bug Fix — Root Further Logo Alignment
+
+**Purpose**: ROOT FURTHER logo in `RootFurtherSection` was rendered side-by-side (`flex items-end gap-2`) instead of stacked vertically — ROOT on top, FURTHER below, centered horizontally — as shown in the Figma design.
+
+- [x] T040 Fix RootFurtherSection.tsx: change logo container from `flex items-end gap-2` to `flex flex-col items-center` so ROOT text image appears on top and FURTHER text image appears below, both centered in the section | src/components/homepage/RootFurtherSection.tsx
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

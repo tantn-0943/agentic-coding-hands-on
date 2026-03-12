@@ -3,8 +3,8 @@ import Image from 'next/image'
 export function RootFurtherSection() {
   return (
     <section className="py-16 lg:py-24 px-4 md:px-10 lg:px-36 bg-[#00101A]" aria-label="Root Further">
-      {/* ROOT FURTHER logo */}
-      <div className="flex items-end gap-2 mb-8">
+      {/* ROOT FURTHER logo — ROOT on top, FURTHER below, centered */}
+      <div className="flex flex-col items-center mb-8">
         <Image
           src="/images/root-further-root-text.png"
           alt="Root"
