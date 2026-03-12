@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/libs/supabase/middleware'
 
-const PUBLIC_ROUTES = ['/login', '/auth/callback', '/auth/error']
+const PUBLIC_ROUTES = ['/login', '/auth/callback', '/auth/error', '/countdown']
 
 function isPublicRoute(pathname: string): boolean {
   return PUBLIC_ROUTES.some((route) => pathname.startsWith(route))
@@ -29,6 +29,16 @@ export async function middleware(request: NextRequest) {
 
   if (isStaticAsset(pathname)) {
     return NextResponse.next()
+  }
+
+  if (pathname === '/countdown') {
+    const eventDateStr = process.env.NEXT_PUBLIC_EVENT_START_DATE
+    if (eventDateStr) {
+      const eventDate = new Date(eventDateStr)
+      if (!isNaN(eventDate.getTime()) && eventDate <= new Date()) {
+        return addSecurityHeaders(NextResponse.redirect(new URL('/', request.url)))
+      }
+    }
   }
 
   const { supabase, supabaseResponse } = await createClient(request)

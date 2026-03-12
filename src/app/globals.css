@@ -14,6 +14,19 @@
 	--gradient-left: linear-gradient(90deg, #00101a 35.63%, rgba(0, 19, 32, 0) 100%);
 	--gradient-bottom: linear-gradient(0deg, #00101a 22.48%, rgba(0, 19, 32, 0) 51.74%);
 	--gradient-bg-fallback: linear-gradient(135deg, #00101a 0%, #001f33 50%, #00101a 100%);
+
+	/* Countdown page design tokens */
+	--color-accent: #ffea9e;
+	--gradient-overlay-countdown: linear-gradient(
+		18deg,
+		#00101a 15.48%,
+		rgba(0, 18, 29, 0.46) 52.13%,
+		rgba(0, 19, 32, 0) 63.41%
+	);
+	--gradient-digit-card: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.1) 100%);
+
+	/* Digital Numbers font — fallback to monospace until TTF is sourced (tech debt) */
+	--font-digital: 'Courier New', monospace;
 }
 
 @theme inline {

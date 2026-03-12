@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { NextRequest, NextResponse } from 'next/server'
 
 // Mock Supabase middleware client
@@ -84,5 +84,79 @@ describe('middleware', () => {
     const { middleware } = await import('./middleware')
     await middleware(makeRequest('/auth/callback'))
     expect(NextResponse.redirect).not.toHaveBeenCalled()
+  })
+
+  // Countdown-specific tests (US3)
+  describe('/countdown route', () => {
+    const originalEnv = process.env
+
+    beforeEach(() => {
+      vi.resetModules()
+      process.env = { ...originalEnv }
+    })
+
+    afterEach(() => {
+      process.env = originalEnv
+    })
+
+    it('TC-C1: passes through when no env var is set', async () => {
+      delete process.env.NEXT_PUBLIC_EVENT_START_DATE
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).not.toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/' })
+      )
+    })
+
+    it('TC-C2: passes through when event date is in the future', async () => {
+      process.env.NEXT_PUBLIC_EVENT_START_DATE = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).not.toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/' })
+      )
+    })
+
+    it('TC-C3: redirects to "/" when event date is in the past', async () => {
+      process.env.NEXT_PUBLIC_EVENT_START_DATE = new Date(Date.now() - 1000).toISOString()
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/' })
+      )
+    })
+
+    it('TC-C4: passes through when event date string is invalid', async () => {
+      process.env.NEXT_PUBLIC_EVENT_START_DATE = 'not-a-date'
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).not.toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/' })
+      )
+    })
+
+    it('TC-C5: unauthenticated + future date is NOT redirected to /login', async () => {
+      process.env.NEXT_PUBLIC_EVENT_START_DATE = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).not.toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/login' })
+      )
+    })
+
+    it('TC-C6: authenticated + past date → redirect to "/"', async () => {
+      process.env.NEXT_PUBLIC_EVENT_START_DATE = new Date(Date.now() - 1000).toISOString()
+      mockGetUser.mockResolvedValue({ data: { user: { id: 'user-123' } }, error: null })
+      const { middleware } = await import('./middleware')
+      await middleware(makeRequest('/countdown'))
+      expect(NextResponse.redirect).toHaveBeenCalledWith(
+        expect.objectContaining({ pathname: '/' })
+      )
+    })
   })
 })

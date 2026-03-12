@@ -19,7 +19,16 @@
       "Bash(npx vitest run src/app/auth/callback/route.test.ts)",
       "Bash(npx vitest run src/middleware.test.ts)",
       "Bash(npx vitest run src/components/auth/LanguageSelector.test.tsx)",
-      "Bash(npx vitest run)"
+      "Bash(npx vitest run)",
+      "mcp__momorph__get_media_file",
+      "Bash(npx vitest run src/hooks/useCountdown.test.ts)",
+      "Bash(npx vitest run src/components/countdown/DigitCard.test.tsx src/components/countdown/CountdownUnit.test.tsx)",
+      "Bash(npx vitest run src/components/countdown/CountdownTimer.test.tsx)",
+      "Bash(npx next lint)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(yarn build)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot"
     ]
   },
   "enabledMcpjsonServers": [
