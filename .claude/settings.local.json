@@ -28,7 +28,8 @@
       "Bash(npx tsc --noEmit)",
       "Bash(yarn build)",
       "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_take_screenshot"
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(python3 -c \":*)"
     ]
   },
   "enabledMcpjsonServers": [
