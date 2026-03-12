@@ -27,6 +27,14 @@
 
 	/* Digital Numbers font — fallback to monospace until TTF is sourced (tech debt) */
 	--font-digital: 'Courier New', monospace;
+
+	/* Homepage hero gradient overlay — distinct from countdown (18deg) */
+	--gradient-overlay-homepage: linear-gradient(
+		12deg,
+		#00101a 23.7%,
+		rgba(0, 18, 29, 0.46) 38.34%,
+		rgba(0, 19, 32, 0) 48.92%
+	);
 }
 
 @theme inline {

@@ -21,10 +21,10 @@
 
 **Purpose**: Prepare static assets and global CSS tokens required by all sections
 
-- [ ] T001 Verify shared images exist: `public/images/login-bg.jpg` and `public/images/root-further-logo.png` are present | public/images/
-- [ ] T002 Download 6 award card images from Figma to `public/images/awards/`: `top-talent.jpg`, `top-project.jpg`, `top-project-leader.jpg`, `best-manager.jpg`, `signature-creator.jpg`, `mvp.jpg` | public/images/awards/
-- [ ] T003 [P] Add `--gradient-overlay-homepage` CSS variable to globals.css: `linear-gradient(12deg, #00101A 23.7%, rgba(0,18,29,0.46) 38.34%, rgba(0,19,32,0) 48.92%)` — distinct from existing `--gradient-overlay-countdown` (18deg) | src/app/globals.css
-- [ ] T004 [P] Create `src/lib/` directory (does not yet exist in project) | src/lib/
+- [x] T001 Verify shared images exist: `public/images/login-bg.jpg` and `public/images/root-further-logo.png` are present | public/images/
+- [x] T002 Download 6 award card images from Figma to `public/images/awards/`: `top-talent.jpg`, `top-project.jpg`, `top-project-leader.jpg`, `best-manager.jpg`, `signature-creator.jpg`, `mvp.jpg` | public/images/awards/
+- [x] T003 [P] Add `--gradient-overlay-homepage` CSS variable to globals.css: `linear-gradient(12deg, #00101A 23.7%, rgba(0,18,29,0.46) 38.34%, rgba(0,19,32,0) 48.92%)` — distinct from existing `--gradient-overlay-countdown` (18deg) | src/app/globals.css
+- [x] T004 [P] Create `src/lib/` directory (does not yet exist in project) | src/lib/
 
 ---
 
@@ -34,10 +34,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 [P] Create `Award` type definition: `{ id: string; slug: string; name: string; description: string; imageUrl: string; linkSlug: string }` | src/types/awards.ts
-- [ ] T006 [P] Create `NotificationsResponse` type: `{ unreadCount: number }` | src/types/notifications.ts
-- [ ] T007 Create `src/lib/awards.ts` with 6 static award entries (Top Talent, Top Project, Top Project Leader, Best Manager, Signature 2025 Creator, MVP) — each with `id`, `slug`, `name`, `description`, `imageUrl` pointing to `public/images/awards/`, and `linkSlug` matching anchor IDs on `/award-information` | src/lib/awards.ts
-- [ ] T008 Create `GET /api/notifications` route handler: validate Supabase session via `@supabase/ssr`, query `notifications` table with RLS, return `{ unreadCount: number }`; return `{ unreadCount: 0 }` on any error (no error toast on homepage) | src/app/api/notifications/route.ts
+- [x] T005 [P] Create `Award` type definition: `{ id: string; slug: string; name: string; description: string; imageUrl: string; linkSlug: string }` | src/types/awards.ts
+- [x] T006 [P] Create `NotificationsResponse` type: `{ unreadCount: number }` | src/types/notifications.ts
+- [x] T007 Create `src/lib/awards.ts` with 6 static award entries (Top Talent, Top Project, Top Project Leader, Best Manager, Signature 2025 Creator, MVP) — each with `id`, `slug`, `name`, `description`, `imageUrl` pointing to `public/images/awards/`, and `linkSlug` matching anchor IDs on `/award-information` | src/lib/awards.ts
+- [x] T008 Create `GET /api/notifications` route handler: validate Supabase session via `@supabase/ssr`, query `notifications` table with RLS, return `{ unreadCount: number }`; return `{ unreadCount: 0 }` on any error (no error toast on homepage) | src/app/api/notifications/route.ts
 
 **Checkpoint**: Foundation ready — all user story phases can now proceed
 
@@ -51,22 +51,22 @@
 
 ### Layout Components (US1)
 
-- [ ] T009 [P] [US1] Create `Header.tsx` Client Component (`'use client'`): sticky top-0 z-50, h-20 px-36 py-3, bg `--color-header-bg`; contains Logo (reuse `src/components/ui/Logo.tsx`), 3 nav links ("About SAA 2025" `/`, "Awards Information" `/award-information`, "Sun* Kudos" `/sun-kudos`), LanguageSelector (reuse `src/components/auth/LanguageSelector.tsx`), notification bell icon placeholder, avatar icon placeholder | src/components/layout/Header.tsx
-- [ ] T010 [P] [US1] Create `Footer.tsx` Server Component: flex row justify-between, py-10 px-[90px], bg #00101A; contains Logo, 3 nav links (16px Montserrat 700 white, hover bg #FFEA9E/10), copyright text (Montserrat Alternates 700) | src/components/layout/Footer.tsx
+- [x] T009 [P] [US1] Create `Header.tsx` Client Component (`'use client'`): sticky top-0 z-50, h-20 px-36 py-3, bg `--color-header-bg`; contains Logo (reuse `src/components/ui/Logo.tsx`), 3 nav links ("About SAA 2025" `/`, "Awards Information" `/award-information`, "Sun* Kudos" `/sun-kudos`), LanguageSelector (reuse `src/components/auth/LanguageSelector.tsx`), notification bell icon placeholder, avatar icon placeholder | src/components/layout/Header.tsx
+- [x] T010 [P] [US1] Create `Footer.tsx` Server Component: flex row justify-between, py-10 px-[90px], bg #00101A; contains Logo, 3 nav links (16px Montserrat 700 white, hover bg #FFEA9E/10), copyright text (Montserrat Alternates 700) | src/components/layout/Footer.tsx
 
 ### Hero Section (US1)
 
-- [ ] T011 [P] [US1] Create `CountdownSection.tsx` Client Component (`'use client'`): import `useCountdown` from `src/hooks/useCountdown.ts` and `CountdownUnit` from `src/components/countdown/CountdownUnit.tsx` — **DO NOT reuse `CountdownTimer.tsx`** (it redirects to `/` on expire causing infinite loop on homepage); render ROOT FURTHER `<Image src="/images/root-further-logo.png" width={451} height={200}>`; render "Coming soon" label (24px Montserrat 700 white) hidden when `isExpired`; render 3 `<CountdownUnit>` in flex row gap-10 with `role="timer" aria-live="polite" aria-atomic="true"`; show `isMounted ? value : 0` for each digit (SSR hydration safety) | src/components/homepage/CountdownSection.tsx
-- [ ] T012 [P] [US1] Create `HeroSection.tsx` Server Component: relative min-h-screen overflow-hidden; `<Image src="/images/login-bg.jpg" fill object-cover z-0 aria-hidden>`; gradient overlay div `style={{ background: 'var(--gradient-overlay-homepage)' }}` absolute inset-0 z-[1]; content section relative z-[2] flex-col px-36 py-24 gap-[120px]; contains `<CountdownSection>`; inline EventInfoBlock (flex row gap-8: date item + venue item, value 24px #FFEA9E, label 16px white); CTA buttons row gap-4 (`<Link href="/award-information">` primary btn bg #FFEA9E text #00101A rounded-lg py-4 px-6 text-[22px] font-bold + `<Link href="/sun-kudos">` secondary btn bg #FFEA9E/10 border border-[#998C5F] text-white) | src/components/homepage/HeroSection.tsx
+- [x] T011 [P] [US1] Create `CountdownSection.tsx` Client Component (`'use client'`): import `useCountdown` from `src/hooks/useCountdown.ts` and `CountdownUnit` from `src/components/countdown/CountdownUnit.tsx` — **DO NOT reuse `CountdownTimer.tsx`** (it redirects to `/` on expire causing infinite loop on homepage); render ROOT FURTHER `<Image src="/images/root-further-logo.png" width={451} height={200}>`; render "Coming soon" label (24px Montserrat 700 white) hidden when `isExpired`; render 3 `<CountdownUnit>` in flex row gap-10 with `role="timer" aria-live="polite" aria-atomic="true"`; show `isMounted ? value : 0` for each digit (SSR hydration safety) | src/components/homepage/CountdownSection.tsx
+- [x] T012 [P] [US1] Create `HeroSection.tsx` Server Component: relative min-h-screen overflow-hidden; `<Image src="/images/login-bg.jpg" fill object-cover z-0 aria-hidden>`; gradient overlay div `style={{ background: 'var(--gradient-overlay-homepage)' }}` absolute inset-0 z-[1]; content section relative z-[2] flex-col px-36 py-24 gap-[120px]; contains `<CountdownSection>`; inline EventInfoBlock (flex row gap-8: date item + venue item, value 24px #FFEA9E, label 16px white); CTA buttons row gap-4 (`<Link href="/award-information">` primary btn bg #FFEA9E text #00101A rounded-lg py-4 px-6 text-[22px] font-bold + `<Link href="/sun-kudos">` secondary btn bg #FFEA9E/10 border border-[#998C5F] text-white) | src/components/homepage/HeroSection.tsx
 
 ### Awards Section (US1)
 
-- [ ] T013 [P] [US1] Create `AwardCard.tsx` Server Component: accepts `Award` type prop; flex flex-col gap-6 w-full cursor-pointer group; `<Link href={\`/award-information#${award.linkSlug}\`}>` wraps entire card; `<Image>` 336×336 border border-[#FFEA9E] object-cover; title 24px Montserrat 400 #FFEA9E; description 16px Montserrat 400 white tracking-[0.5px] line-clamp-2; "Chi tiết" link text 16px Montserrat 500 white (hover underline + color #FFEA9E) | src/components/homepage/AwardCard.tsx
-- [ ] T014 [US1] Create `AwardsSection.tsx` Server Component: import awards from `src/lib/awards.ts`; section header (caption 24px white + heading "Hệ thống giải thưởng" 57px Montserrat 700 #FFEA9E leading-[64px] tracking-[-0.25px]); awards grid `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-36`; render `<AwardCard>` for each of 6 awards | src/components/homepage/AwardsSection.tsx
+- [x] T013 [P] [US1] Create `AwardCard.tsx` Server Component: accepts `Award` type prop; flex flex-col gap-6 w-full cursor-pointer group; `<Link href={\`/award-information#${award.linkSlug}\`}>` wraps entire card; `<Image>` 336×336 border border-[#FFEA9E] object-cover; title 24px Montserrat 400 #FFEA9E; description 16px Montserrat 400 white tracking-[0.5px] line-clamp-2; "Chi tiết" link text 16px Montserrat 500 white (hover underline + color #FFEA9E) | src/components/homepage/AwardCard.tsx
+- [x] T014 [US1] Create `AwardsSection.tsx` Server Component: import awards from `src/lib/awards.ts`; section header (caption 24px white + heading "Hệ thống giải thưởng" 57px Montserrat 700 #FFEA9E leading-[64px] tracking-[-0.25px]); awards grid `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-36`; render `<AwardCard>` for each of 6 awards | src/components/homepage/AwardsSection.tsx
 
 ### Page Composition (US1)
 
-- [ ] T015 [US1] Rewrite `src/app/page.tsx` as Server Component: `export const metadata: Metadata = { title: 'Sun Annual Awards 2025', description: '...' }`; compose `<Header />`, `<HeroSection />`, `<AwardsSection />`, `<Footer />`; background `#00101A`; no `RootFurtherSection`/`KudosSection`/`WidgetButton` yet — added in later phases | src/app/page.tsx
+- [x] T015 [US1] Rewrite `src/app/page.tsx` as Server Component: `export const metadata: Metadata = { title: 'Sun Annual Awards 2025', description: '...' }`; compose `<Header />`, `<HeroSection />`, `<AwardsSection />`, `<Footer />`; background `#00101A`; no `RootFurtherSection`/`KudosSection`/`WidgetButton` yet — added in later phases | src/app/page.tsx
 
 **Checkpoint**: `yarn dev` → `/` passes independent test above — US1 complete 🎯
 
@@ -80,13 +80,13 @@
 
 ### Header Enhancements (US4)
 
-- [ ] T016 [P] [US4] Implement `usePathname()` active nav state in Header: import `usePathname` from `next/navigation`; active link = `text-[#FFEA9E] bg-[#FFEA9E]/10 rounded` (4px radius, 4px 8px padding); inactive = text-white; hover = bg #FFEA9E/10 transition 150ms | src/components/layout/Header.tsx
-- [ ] T017 [P] [US4] Implement notification bell with badge: `useEffect` on mount → `fetch('/api/notifications')` → set `unreadCount` state; show red circle badge `bg-[#EF4444]` when `unreadCount > 0`; hide badge (no error toast) on API failure; bell uses icon component | src/components/layout/Header.tsx
-- [ ] T018 [US4] Implement avatar dropdown: click avatar → toggle dropdown with "Profile" and "Sign out" options; admin users additionally see "Admin Dashboard"; use Supabase `signOut()` for Sign out action | src/components/layout/Header.tsx
+- [x] T016 [P] [US4] Implement `usePathname()` active nav state in Header: import `usePathname` from `next/navigation`; active link = `text-[#FFEA9E] bg-[#FFEA9E]/10 rounded` (4px radius, 4px 8px padding); inactive = text-white; hover = bg #FFEA9E/10 transition 150ms | src/components/layout/Header.tsx
+- [x] T017 [P] [US4] Implement notification bell with badge: `useEffect` on mount → `fetch('/api/notifications')` → set `unreadCount` state; show red circle badge `bg-[#EF4444]` when `unreadCount > 0`; hide badge (no error toast) on API failure; bell uses icon component | src/components/layout/Header.tsx
+- [x] T018 [US4] Implement avatar dropdown: click avatar → toggle dropdown with "Profile" and "Sign out" options; admin users additionally see "Admin Dashboard"; use Supabase `signOut()` for Sign out action | src/components/layout/Header.tsx
 
 ### Footer Interactivity (US4)
 
-- [ ] T019 [US4] Verify Footer nav links navigate correctly: "About SAA 2025" → `/`, "Awards Information" → `/award-information`, "Sun* Kudos" → `/sun-kudos`; add active state styling (bg #FFEA9E/10 px-2 py-1 rounded) using `usePathname` if needed — promote Footer to Client Component only if pathname check is required | src/components/layout/Footer.tsx
+- [x] T019 [US4] Verify Footer nav links navigate correctly: "About SAA 2025" → `/`, "Awards Information" → `/award-information`, "Sun* Kudos" → `/sun-kudos`; add active state styling (bg #FFEA9E/10 px-2 py-1 rounded) using `usePathname` if needed — promote Footer to Client Component only if pathname check is required | src/components/layout/Footer.tsx
 
 **Checkpoint**: Header active state + notifications badge + avatar dropdown working
 
@@ -98,7 +98,7 @@
 
 **Independent Test**: Truy cập `/`, đợi 65 giây → số MINUTES giảm 1 mà không reload trang. Khi event date đã qua: "Coming soon" text ẩn, countdown hiển thị "00 00 00", trang **không redirect**
 
-- [ ] T020 [US2] Verify and finalize `CountdownSection.tsx` real-time behavior: (1) confirm `isMounted = false` before hydration shows digits as `0`; (2) confirm `isExpired = true` hides "Coming soon" label and shows `00 00 00` without calling `router.replace('/')` (no redirect); (3) confirm `visibilitychange` event in `useCountdown` corrects stale values after tab switch; fix any issues found | src/components/homepage/CountdownSection.tsx
+- [x] T020 [US2] Verify and finalize `CountdownSection.tsx` real-time behavior: (1) confirm `isMounted = false` before hydration shows digits as `0`; (2) confirm `isExpired = true` hides "Coming soon" label and shows `00 00 00` without calling `router.replace('/')` (no redirect); (3) confirm `visibilitychange` event in `useCountdown` corrects stale values after tab switch; fix any issues found | src/components/homepage/CountdownSection.tsx
 
 **Checkpoint**: Countdown ticks correctly, expired state shows 00/00/00 without redirect
 
@@ -112,12 +112,12 @@
 
 ### Kudos Components (US3)
 
-- [ ] T021 [P] [US3] Create `RootFurtherSection.tsx` Server Component: px-36, 16px Montserrat 400 white tracking-[0.5px] leading-relaxed; render long-form event description text from static content (Node `5001:14827`) | src/components/homepage/RootFurtherSection.tsx
-- [ ] T022 [P] [US3] Create `KudosSection.tsx` Server Component: max-w-[1224px] mx-auto min-h-[500px] bg-[#0F0F0F]; flex row items-center justify-between py-10 px-[52px]; left content: label "Phong trào ghi nhận" (24px Montserrat 700 white) + title "Sun* Kudos" (57px Montserrat 700 #FFEA9E leading-[64px]) + desc (16px Montserrat 700 white tracking-[0.5px]) + `<Link href="/sun-kudos">` button (127×56 bg #FFEA9E rounded text-[#00101A] 16px bold, hover opacity-90 150ms); right side: Kudos image | src/components/homepage/KudosSection.tsx
+- [x] T021 [P] [US3] Create `RootFurtherSection.tsx` Server Component: px-36, 16px Montserrat 400 white tracking-[0.5px] leading-relaxed; render long-form event description text from static content (Node `5001:14827`) | src/components/homepage/RootFurtherSection.tsx
+- [x] T022 [P] [US3] Create `KudosSection.tsx` Server Component: max-w-[1224px] mx-auto min-h-[500px] bg-[#0F0F0F]; flex row items-center justify-between py-10 px-[52px]; left content: label "Phong trào ghi nhận" (24px Montserrat 700 white) + title "Sun* Kudos" (57px Montserrat 700 #FFEA9E leading-[64px]) + desc (16px Montserrat 700 white tracking-[0.5px]) + `<Link href="/sun-kudos">` button (127×56 bg #FFEA9E rounded text-[#00101A] 16px bold, hover opacity-90 150ms); right side: Kudos image | src/components/homepage/KudosSection.tsx
 
 ### Page Composition Update (US3)
 
-- [ ] T023 [US3] Update `src/app/page.tsx`: add `<RootFurtherSection />` between `<HeroSection />` and `<AwardsSection />`; add `<KudosSection />` after `<AwardsSection />` and before `<Footer />` | src/app/page.tsx
+- [x] T023 [US3] Update `src/app/page.tsx`: add `<RootFurtherSection />` between `<HeroSection />` and `<AwardsSection />`; add `<KudosSection />` after `<AwardsSection />` and before `<Footer />` | src/app/page.tsx
 
 **Checkpoint**: Scroll `/` → RootFurther text visible, Kudos section visible with working "Chi tiết" link
 
@@ -129,8 +129,8 @@
 
 **Independent Test**: Scroll trang bất kỳ vị trí → widget button (106×64px, #FFEA9E pill) luôn visible ở góc dưới phải màn hình; click → toggle menu placeholder
 
-- [ ] T024 [US5] Create `WidgetButton.tsx` Client Component (`'use client'`): `fixed bottom-8 right-8 z-50`; `w-[106px] h-16 bg-[#FFEA9E] rounded-full cursor-pointer`; `useState<boolean>` for `isOpen` toggle; click → toggle `isOpen`; render placeholder `<ul>` menu when `isOpen` (content TBD — pending Q1 resolution); hover scale-105 transition-150ms; focus outline 2px solid #00101A | src/components/layout/WidgetButton.tsx
-- [ ] T025 [US5] Add `<WidgetButton />` to `src/app/page.tsx` composition (render as last child of page, outside of main flow) | src/app/page.tsx
+- [x] T024 [US5] Create `WidgetButton.tsx` Client Component (`'use client'`): `fixed bottom-8 right-8 z-50`; `w-[106px] h-16 bg-[#FFEA9E] rounded-full cursor-pointer`; `useState<boolean>` for `isOpen` toggle; click → toggle `isOpen`; render placeholder `<ul>` menu when `isOpen` (content TBD — pending Q1 resolution); hover scale-105 transition-150ms; focus outline 2px solid #00101A | src/components/layout/WidgetButton.tsx
+- [x] T025 [US5] Add `<WidgetButton />` to `src/app/page.tsx` composition (render as last child of page, outside of main flow) | src/app/page.tsx
 
 **Checkpoint**: Widget button visible at all scroll positions, click toggles menu
 
@@ -140,10 +140,10 @@
 
 **Purpose**: Accessibility, hover states, responsive verification, build validation
 
-- [ ] T026 [P] Verify accessibility in `CountdownSection.tsx`: confirm `role="timer" aria-live="polite" aria-atomic="true"` on countdown container; confirm `alt="ROOT FURTHER – SAA 2025"` on ROOT FURTHER image; confirm `aria-hidden={true}` on hero background image | src/components/homepage/CountdownSection.tsx, src/components/homepage/HeroSection.tsx
-- [ ] T027 [P] Add hover transitions and focus-visible outlines to all interactive elements: CTA buttons (opacity 0.9 hover, 150ms ease), award card (group-hover:translateY(-4px) + box-shadow glow, 200ms ease-out), footer nav links (bg #FFEA9E/10, 150ms), widget button (scale-105, 150ms); focus-visible outline `2px solid #FFEA9E outline-offset-2` on all focusable elements | src/components/homepage/HeroSection.tsx, src/components/homepage/AwardCard.tsx, src/components/layout/Footer.tsx
-- [ ] T028 [P] Responsive check and fix: verify award card grid at 375px (grid-cols-1, flex-col CTAs), 768px (grid-cols-2), 1440px (grid-cols-3, 144px padding); verify no horizontal overflow; fix any issues | src/components/homepage/AwardsSection.tsx, src/components/homepage/HeroSection.tsx
-- [ ] T029 Verify `yarn build` passes: no TypeScript errors, no Cloudflare edge runtime violations (no Node.js built-ins), no ESLint errors (`yarn lint`) | — (all files)
+- [x] T026 [P] Verify accessibility in `CountdownSection.tsx`: confirm `role="timer" aria-live="polite" aria-atomic="true"` on countdown container; confirm `alt="ROOT FURTHER – SAA 2025"` on ROOT FURTHER image; confirm `aria-hidden={true}` on hero background image | src/components/homepage/CountdownSection.tsx, src/components/homepage/HeroSection.tsx
+- [x] T027 [P] Add hover transitions and focus-visible outlines to all interactive elements: CTA buttons (opacity 0.9 hover, 150ms ease), award card (group-hover:translateY(-4px) + box-shadow glow, 200ms ease-out), footer nav links (bg #FFEA9E/10, 150ms), widget button (scale-105, 150ms); focus-visible outline `2px solid #FFEA9E outline-offset-2` on all focusable elements | src/components/homepage/HeroSection.tsx, src/components/homepage/AwardCard.tsx, src/components/layout/Footer.tsx
+- [x] T028 [P] Responsive check and fix: verify award card grid at 375px (grid-cols-1, flex-col CTAs), 768px (grid-cols-2), 1440px (grid-cols-3, 144px padding); verify no horizontal overflow; fix any issues | src/components/homepage/AwardsSection.tsx, src/components/homepage/HeroSection.tsx
+- [x] T029 Verify `yarn build` passes: no TypeScript errors, no Cloudflare edge runtime violations (no Node.js built-ins), no ESLint errors (`yarn lint`) | — (all files)
 
 ---
 
