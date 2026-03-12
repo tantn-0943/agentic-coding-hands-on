@@ -204,3 +204,13 @@ T012 [P] ─────── impl Logo ────────────┘
 - If background image (662:14389) is unavailable, use CSS fallback: `background: linear-gradient(0deg, #00101A 22.48%, rgba(0,19,32,0) 51.74%)` on the page wrapper
 - `NEXT_PUBLIC_SITE_URL` must be set in `.env.local` before testing OAuth flow
 - Run `opennextjs-cloudflare preview` (not just `next dev`) to verify edge runtime compatibility before final sign-off
+
+---
+
+## Phase 7: Bug Fix — Google OAuth `client_id` placeholder
+
+**Root cause**: `supabase/config.toml` uses `client_id = "env(GOOGLE_CLIENT_ID)"`. The Supabase CLI substitutes this at `supabase start` time from the **shell environment** — it does NOT auto-load `.env.development`. If `GOOGLE_CLIENT_ID` is not exported, Supabase starts with the placeholder `your_google_client_id`, and Google rejects every OAuth attempt.
+
+- [x] T027 Add `supabase:start` script to `package.json` that loads `.env.development` before starting Supabase: `"supabase:start": "env $(grep -v '^#' .env.development | xargs) supabase start"`. Then stop and restart: `supabase stop && yarn supabase:start` to apply the real `GOOGLE_CLIENT_ID`. | package.json
+
+**Checkpoint**: `yarn supabase:start` → `supabase status` shows Google auth active → click "LOGIN With Google" → Google OAuth loads with correct client_id, no error page.

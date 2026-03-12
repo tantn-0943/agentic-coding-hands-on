@@ -4,5 +4,8 @@ export type Award = {
   name: string
   description: string
   imageUrl: string
+  artworkUrl: string
+  artworkWidth: number
+  artworkHeight: number
   linkSlug: string
 }

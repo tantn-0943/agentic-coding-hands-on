@@ -1,12 +1,17 @@
 import type { Award } from '@/types/awards'
 
+const AWARD_BG = '/images/awards/award-background.png'
+
 export const awards: Award[] = [
   {
     id: 'top-talent',
     slug: 'top-talent',
     name: 'Top Talent',
     description: 'Vinh danh những cá nhân xuất sắc nhất với năng lực vượt trội và đóng góp nổi bật cho tổ chức.',
-    imageUrl: '/images/awards/top-talent.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/top-talent-artwork.png',
+    artworkWidth: 222,
+    artworkHeight: 36,
     linkSlug: 'top-talent',
   },
   {
@@ -14,7 +19,10 @@ export const awards: Award[] = [
     slug: 'top-project',
     name: 'Top Project',
     description: 'Ghi nhận những dự án tiêu biểu mang lại giá trị cao nhất cho khách hàng và tổ chức.',
-    imageUrl: '/images/awards/top-project.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/top-project-artwork.png',
+    artworkWidth: 232,
+    artworkHeight: 35,
     linkSlug: 'top-project',
   },
   {
@@ -22,7 +30,10 @@ export const awards: Award[] = [
     slug: 'top-project-leader',
     name: 'Top Project Leader',
     description: 'Tôn vinh những người dẫn dắt dự án xuất sắc với khả năng lãnh đạo và quản lý hiệu quả.',
-    imageUrl: '/images/awards/top-project-leader.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/top-project-leader-artwork.png',
+    artworkWidth: 232,
+    artworkHeight: 64,
     linkSlug: 'top-project-leader',
   },
   {
@@ -30,7 +41,10 @@ export const awards: Award[] = [
     slug: 'best-manager',
     name: 'Best Manager',
     description: 'Vinh danh những nhà quản lý tài ba, truyền cảm hứng và xây dựng đội nhóm vững mạnh.',
-    imageUrl: '/images/awards/best-manager.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/best-manager-artwork.png',
+    artworkWidth: 232,
+    artworkHeight: 30,
     linkSlug: 'best-manager',
   },
   {
@@ -38,7 +52,10 @@ export const awards: Award[] = [
     slug: 'signature-creator',
     name: 'Signature 2025 - Creator',
     description: 'Ghi nhận những cá nhân sáng tạo, đổi mới và tạo ra dấu ấn đặc biệt trong năm 2025.',
-    imageUrl: '/images/awards/signature-creator.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/signature-creator-artwork.png',
+    artworkWidth: 232,
+    artworkHeight: 54,
     linkSlug: 'signature-2025-creator',
   },
   {
@@ -46,7 +63,10 @@ export const awards: Award[] = [
     slug: 'mvp',
     name: 'MVP',
     description: 'Most Valuable Player — Cầu thủ xuất sắc nhất, người đóng góp giá trị vượt trội cho toàn tổ chức.',
-    imageUrl: '/images/awards/mvp.png',
+    imageUrl: AWARD_BG,
+    artworkUrl: '/images/awards/mvp-artwork.png',
+    artworkWidth: 116,
+    artworkHeight: 52,
     linkSlug: 'mvp',
   },
 ]

@@ -13,7 +13,9 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "supabase:start": "env $(grep -v '^#' .env.development | xargs) supabase start",
+    "supabase:stop": "supabase stop"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.14.4",

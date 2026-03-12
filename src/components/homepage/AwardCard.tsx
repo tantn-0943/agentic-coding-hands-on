@@ -14,13 +14,24 @@ export function AwardCard({ award }: Props) {
       aria-label={`${award.name} — Chi tiết`}
     >
       <div className="relative w-full aspect-square overflow-hidden border border-[#FFEA9E] transition-[transform,box-shadow] duration-200 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_8px_24px_rgba(255,234,158,0.25)]">
+        {/* Background: shared ring + podium + dark bg */}
         <Image
           src={award.imageUrl}
-          alt={award.name}
+          alt=""
           fill
           sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 336px"
           className="object-cover transition-transform duration-200 ease-out group-hover:scale-105"
         />
+        {/* Artwork: unique text label centered in the ring (ring center ~42% from top) */}
+        <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '16%' }}>
+          <Image
+            src={award.artworkUrl}
+            alt={award.name}
+            width={award.artworkWidth}
+            height={award.artworkHeight}
+            className="object-contain"
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">

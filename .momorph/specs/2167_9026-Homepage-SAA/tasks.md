@@ -147,6 +147,18 @@
 
 ---
 
+## Phase 9: Bug Fix — Award Card Images
+
+**Purpose**: Fix wrong images for all 6 award cards (were text-label PNGs ~222×36px instead of artwork)
+
+- [x] T030 [P] Download shared award background from Figma (`I2167:907X;214:1019;81:2442`, 336×336 ring+podium+dark bg) to `public/images/awards/award-background.png` | public/images/awards/award-background.png
+- [x] T031 [P] Download 6 artwork text-label PNGs from Figma to `public/images/awards/`: `top-talent-artwork.png` (222×36), `top-project-artwork.png` (232×35), `top-project-leader-artwork.png` (232×64), `best-manager-artwork.png` (232×30), `signature-creator-artwork.png` (232×54), `mvp-artwork.png` (116×52) | public/images/awards/
+- [x] T032 Add `artworkUrl`, `artworkWidth`, `artworkHeight` fields to `Award` type | src/types/awards.ts
+- [x] T033 Update `awards.ts`: set `imageUrl = AWARD_BG` (shared background) and add `artworkUrl`/`artworkWidth`/`artworkHeight` per card | src/lib/awards.ts
+- [x] T034 Update `AwardCard.tsx`: add `<Image fill src={award.imageUrl}>` as background layer + `<div absolute inset-0 flex items-center justify-center paddingBottom=16%><Image src={award.artworkUrl} width height>` overlay centered in ring (ring center ~42% from top) | src/components/homepage/AwardCard.tsx
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
