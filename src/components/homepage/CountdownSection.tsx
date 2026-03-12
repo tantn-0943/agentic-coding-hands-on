@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useCountdown } from '@/hooks/useCountdown'
 import { CountdownUnit } from '@/components/countdown/CountdownUnit'
 
@@ -15,15 +14,6 @@ export function CountdownSection() {
 
   return (
     <div className="flex flex-col items-start gap-4">
-      <Image
-        src="/images/root-further-logo.png"
-        alt="ROOT FURTHER – SAA 2025"
-        width={451}
-        height={200}
-        className="w-full max-w-[280px] md:max-w-[320px] lg:w-[451px] lg:max-w-none object-contain"
-        priority
-      />
-
       {!isExpired && (
         <p className="font-[family-name:var(--font-montserrat)] font-bold text-[24px] text-white">
           Coming soon

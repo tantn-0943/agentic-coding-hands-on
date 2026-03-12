@@ -159,6 +159,15 @@
 
 ---
 
+## Phase 10: Bug Fix — Root Further Position
+
+**Purpose**: Fix two position issues: (1) `page.tsx` section order was Hero→Awards→RootFurther→Kudos instead of Hero→RootFurther→Awards→Kudos; (2) ROOT FURTHER logo was incorrectly placed inside `CountdownSection` (client component, Figma node `2167:9035`) instead of as a sibling — the Figma countdown node only contains "Coming soon" + digits
+
+- [x] T035 Fix section order in `page.tsx`: swap `<AwardsSection />` and `<RootFurtherSection />` so order is Hero → RootFurther → Awards → Kudos | src/app/page.tsx
+- [x] T036 Move ROOT FURTHER logo (`/images/root-further-logo.png`, 451×200) from `CountdownSection.tsx` to `HeroSection.tsx`: wrap logo + `<CountdownSection />` in `<div className="flex flex-col items-start gap-4">` sub-container so visual spacing is preserved (logo → 16px gap → "Coming soon" → countdown); remove unused `Image` import from `CountdownSection.tsx` | src/components/homepage/HeroSection.tsx, src/components/homepage/CountdownSection.tsx
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

@@ -28,8 +28,18 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-[2] flex flex-col items-start gap-[40px] lg:gap-[120px] px-4 md:px-10 lg:px-36 py-[100px] md:py-[120px] lg:py-24">
-        {/* Countdown + ROOT FURTHER image */}
-        <CountdownSection />
+        {/* ROOT FURTHER logo + Countdown section grouped together */}
+        <div className="flex flex-col items-start gap-4">
+          <Image
+            src="/images/root-further-logo.png"
+            alt="ROOT FURTHER – SAA 2025"
+            width={451}
+            height={200}
+            className="w-full max-w-[280px] md:max-w-[320px] lg:w-[451px] lg:max-w-none object-contain"
+            priority
+          />
+          <CountdownSection />
+        </div>
 
         {/* Event Info + CTA */}
         <div className="flex flex-col gap-8">

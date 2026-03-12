@@ -19,8 +19,8 @@ export default function HomePage() {
       <Header />
       <main>
         <HeroSection />
-        <AwardsSection />
         <RootFurtherSection />
+        <AwardsSection />
         <KudosSection />
       </main>
       <Footer />
