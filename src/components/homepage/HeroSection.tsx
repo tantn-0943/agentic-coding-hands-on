@@ -65,15 +65,21 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4">
           <Link
             href="/award-information"
-            className="inline-flex items-center justify-center bg-[#FFEA9E] text-[#00101A] font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:opacity-90 active:opacity-80 transition-opacity duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
+            className="inline-flex items-center justify-center gap-2 bg-[#FFEA9E] text-[#00101A] font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:opacity-90 active:opacity-80 transition-opacity duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
           >
             ABOUT AWARDS
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
           <Link
             href="/sun-kudos"
-            className="inline-flex items-center justify-center bg-[#FFEA9E]/10 border border-[#998C5F] text-white font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:bg-[#FFEA9E]/15 active:bg-[#FFEA9E]/20 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
+            className="inline-flex items-center justify-center gap-2 bg-[#FFEA9E]/10 border border-[#998C5F] text-white font-[family-name:var(--font-montserrat)] font-bold text-[22px] py-4 px-6 rounded-lg hover:bg-[#FFEA9E]/15 active:bg-[#FFEA9E]/20 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#FFEA9E] focus-visible:outline-offset-2"
           >
             ABOUT KUDOS
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </div>
       </div>

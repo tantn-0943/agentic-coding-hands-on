@@ -1,16 +1,17 @@
-'use client'
+"use client";
 
-import { useCountdown } from '@/hooks/useCountdown'
-import { CountdownUnit } from '@/components/countdown/CountdownUnit'
+import { useCountdown } from "@/hooks/useCountdown";
+import { CountdownUnit } from "@/components/countdown/CountdownUnit";
 
 export function CountdownSection() {
-  const eventDateStr = process.env.NEXT_PUBLIC_EVENT_START_DATE
-  const { days, hours, minutes, isExpired, isMounted } = useCountdown(eventDateStr)
+  const eventDateStr = process.env.NEXT_PUBLIC_EVENT_START_DATE;
+  const { days, hours, minutes, isExpired, isMounted } =
+    useCountdown(eventDateStr);
 
   // Show 0 before hydration to prevent SSR/client mismatch
-  const displayDays = isMounted ? days : 0
-  const displayHours = isMounted ? hours : 0
-  const displayMinutes = isMounted ? minutes : 0
+  const displayDays = isMounted ? days : 0;
+  const displayHours = isMounted ? hours : 0;
+  const displayMinutes = isMounted ? minutes : 0;
 
   return (
     <div className="flex flex-col items-start gap-4">
@@ -43,5 +44,5 @@ export function CountdownSection() {
         />
       </div>
     </div>
-  )
+  );
 }

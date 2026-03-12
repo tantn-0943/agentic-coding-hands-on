@@ -25,8 +25,7 @@
 	);
 	--gradient-digit-card: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.1) 100%);
 
-	/* Digital Numbers font — fallback to monospace until TTF is sourced (tech debt) */
-	--font-digital: 'Courier New', monospace;
+	/* --font-digital is injected by next/font/local (DSEG7Classic-Regular) via layout.tsx */
 
 	/* Homepage hero gradient overlay — distinct from countdown (18deg) */
 	--gradient-overlay-homepage: linear-gradient(

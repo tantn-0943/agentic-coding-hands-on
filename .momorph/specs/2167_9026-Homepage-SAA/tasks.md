@@ -186,6 +186,22 @@
 
 ---
 
+## Phase 13: Bug Fix — Countdown Digit Font
+
+**Purpose**: Countdown digit tiles used `'Courier New', monospace` fallback instead of the DSEG7 Classic 7-segment LCD display font specified in the design.
+
+- [x] T042 Fix countdown digit font: download `DSEG7Classic-Regular.ttf` from jsDelivr (`npm:dseg@0.46.0`) to `public/fonts/`; configure via `next/font/local` with `variable: '--font-digital'` in `layout.tsx`; add `digitalFont.variable` to `<body>` className; remove `--font-digital: 'Courier New', monospace` fallback from `globals.css` | public/fonts/DSEG7Classic-Regular.ttf, src/app/layout.tsx, src/app/globals.css
+
+---
+
+## Phase 14: Bug Fix — CTA Button Missing Icons
+
+**Purpose**: "ABOUT AWARDS" and "ABOUT KUDOS" buttons in `HeroSection` were missing the ↗ arrow icon visible in the Figma design (`2167:9063`, `2167:9064`). Icon nodes returned null from Figma media files; implemented as inline SVG with `currentColor` to inherit text color.
+
+- [x] T043 Add ↗ arrow icon to CTA buttons in HeroSection.tsx: add `gap-2` to each button's `inline-flex`, append `<svg width="20" height="20" viewBox="0 0 24 24">` with northeast arrow path using `stroke="currentColor"` after button text | src/components/homepage/HeroSection.tsx
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
