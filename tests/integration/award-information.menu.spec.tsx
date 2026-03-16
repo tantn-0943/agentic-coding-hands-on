@@ -50,7 +50,7 @@ describe("AwardsInfoPageContent interactions", () => {
       name: "Danh mục giải thưởng",
     });
     const menuButton = within(navigation).getByRole("button", {
-      name: /02Top Project/i,
+      name: /^Top Project$/i,
     });
     fireEvent.click(menuButton);
 
@@ -74,7 +74,7 @@ describe("AwardsInfoPageContent interactions", () => {
       name: "Danh mục giải thưởng",
     });
     const activeButton = within(navigation).getByRole("button", {
-      name: /04Best Manager/i,
+      name: /Best Manager/i,
     });
     expect(activeButton).toHaveAttribute("aria-current", "location");
   });

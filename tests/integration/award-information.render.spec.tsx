@@ -33,7 +33,7 @@ describe("AwardsInfoPageContent rendering", () => {
     expect(
       screen.getByRole("heading", { name: "Top Project Leader" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("20.000.000 VNĐ")).toBeInTheDocument();
+    expect(screen.getAllByText("15.000.000 VNĐ").length).toBeGreaterThan(0);
     expect(screen.getByText("Sun* Kudos")).toBeInTheDocument();
   });
 });

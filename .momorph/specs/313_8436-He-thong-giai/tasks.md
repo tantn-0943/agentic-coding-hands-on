@@ -198,6 +198,54 @@
 
 ---
 
+## Phase 8: Bug Fixes — Design Review
+
+**Purpose**: Sửa các lỗi sai lệch thiết kế sau khi review lại với Figma design
+
+### Section Title & Layout
+
+- [x] T047 [BUG] Fix Section Title caption "Sun\* Annual Awards 2025" font-size sai (16px → 24px theo Figma) và thiếu separator line giữa caption và heading | src/components/award-information/AwardsInfoPageContent.tsx
+
+### AwardsMenu
+
+- [x] T048 [BUG] Fix AwardsMenu design: bỏ pill/chip styling (rounded-full, border, background), chuyển sang simple text + icon, font 14px/700, gap 4px, borderRadius 4px, active = text vàng, inactive = text trắng | src/components/award-information/AwardsMenuItem.tsx
+- [x] T049 [BUG] Fix AwardsMenu container: width ~178px, gap 16px, bỏ horizontal scroll layout | src/components/award-information/AwardsMenu.tsx
+
+### AwardDetailCard
+
+- [x] T050 [BUG] Fix AwardDetailCard: bỏ card container (border, rounded, background, shadow), chuyển sang layout phẳng với separator lines | src/components/award-information/AwardDetailCard.tsx
+- [x] T051 [BUG] Fix AwardDetailCard metadata layout: "Số lượng giải thưởng:" và "Giá trị giải thưởng:" hiển thị dạng row với icon + label (24px/#FFEA9E) + value (36px/white), bỏ bordered sub-cards | src/components/award-information/AwardDetailCard.tsx
+- [x] T052 [BUG] Fix AwardDetailCard alternating layout: Best Manager (D.4) và MVP (D.6) có ảnh bên phải thay vì bên trái | src/components/award-information/AwardDetailCard.tsx
+- [x] T053 [BUG] Fix AwardDetailCard title: thêm icon trước title, font-size 24px/700/#FFEA9E, bỏ label "Hạng mục giải thưởng" | src/components/award-information/AwardDetailCard.tsx
+
+### Data Corrections
+
+- [x] T054 [BUG] Fix award data: Best Manager quantity 3→1, prize 12M→10M; MVP prize 20M→15M; Signature quantity 5→1, unit "Cá nhân hoặc tập thể", thêm dual prize (5M cá nhân / 8M tập thể) | src/lib/awards.ts
+
+### Kudos Block
+
+- [x] T055 [BUG] Fix Kudos block: label "Phong trào ghi nhận" thay vì subtitle, CTA borderRadius=4px, thêm Kudos logo bên phải, background image | src/components/award-information/AwardsKudosPromo.tsx
+
+---
+
+## Phase 9: Bug Fixes — Design Review Round 2
+
+**Purpose**: Sửa các lỗi sai lệch thiết kế phát hiện sau round 1
+
+### Section Title Centering
+
+- [x] T056 [BUG] Fix Section Header "Sun\* Annual Awards 2025" / "Hệ thống giải thưởng SAA 2025" chưa căn giữa — thêm `items-center text-center` vào header flex container | src/components/award-information/AwardsInfoPageContent.tsx
+
+### AwardsMenu Underline
+
+- [x] T057 [BUG] Fix AwardsMenuItem thiếu gạch dưới khi active — thêm `underline decoration-[#FFEA9E] decoration-2 underline-offset-4` vào active state | src/components/award-information/AwardsMenuItem.tsx
+
+### AwardDetailCard Image
+
+- [x] T058 [BUG] Fix AwardDetailCard image sai — chuyển từ `imageUrl` (full-bleed photo) sang `artworkUrl` (artwork text) centered trên nền dark `award-background.png`, đúng theo Figma | src/components/award-information/AwardDetailCard.tsx
+
+---
+
 ## Notes
 
 - Assumption hiện tại: route màn là `/award-information`, CTA Sun\* Kudos đi tới `/sun-kudos`.

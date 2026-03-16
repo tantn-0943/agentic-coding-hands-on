@@ -9,8 +9,8 @@ type Props = {
 
 export function AwardsMenu({ items, activeId, onSelect }: Props) {
   return (
-    <nav aria-label="Danh mục giải thưởng" className="w-full">
-      <div className="flex gap-3 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible">
+    <nav aria-label="Danh mục giải thưởng" className="w-full lg:w-[178px]">
+      <div className="flex flex-col gap-4">
         {items.map((item) => (
           <AwardsMenuItem
             key={item.id}

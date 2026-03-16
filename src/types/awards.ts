@@ -1,3 +1,8 @@
+export type PrizeEntry = {
+  value: string;
+  label?: string;
+};
+
 export type Award = {
   id: string;
   slug: string;
@@ -11,7 +16,9 @@ export type Award = {
   quantity: number;
   unit: string;
   prizeValue: string;
+  prizeEntries?: PrizeEntry[];
   note?: string;
+  imagePosition?: "left" | "right";
 };
 
 export type AwardNavigationItem = {
@@ -22,8 +29,9 @@ export type AwardNavigationItem = {
 };
 
 export type KudosPromo = {
-  subtitle: string;
+  label: string;
   title: string;
+  subtitle: string;
   description: string;
   ctaLabel: string;
   ctaRoute?: string | null;

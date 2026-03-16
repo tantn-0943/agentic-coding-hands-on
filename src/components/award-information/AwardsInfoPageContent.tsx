@@ -160,16 +160,17 @@ export function AwardsInfoPageContent({
 
       <section className="bg-[#00101A] py-16 text-white md:py-20 lg:py-24">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-4 md:px-10 lg:px-36">
-          <header className="space-y-3">
-            <p className="font-[family-name:var(--font-montserrat)] text-base font-bold text-white">
-              Sun* annual awards 2025
+          <header className="flex flex-col items-center gap-4 text-center">
+            <p className="font-[family-name:var(--font-montserrat)] text-2xl font-bold leading-8 text-white">
+              Sun* Annual Awards 2025
             </p>
-            <h1 className="font-[family-name:var(--font-montserrat)] text-[32px] font-bold leading-tight text-[#FFEA9E] md:text-[42px] lg:text-[57px] lg:leading-[64px]">
+            <div className="h-px w-full bg-[#2E3940]" />
+            <h1 className="font-[family-name:var(--font-montserrat)] text-[32px] font-bold leading-tight text-[#FFEA9E] md:text-[42px] lg:text-[57px] lg:leading-[64px] lg:tracking-[-0.25px]">
               Hệ thống giải thưởng SAA 2025
             </h1>
           </header>
 
-          <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[320px_minmax(0,1fr)]">
+          <div className="grid gap-8 lg:grid-cols-[178px_minmax(0,1fr)] lg:gap-10">
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <AwardsMenu
                 items={menuItems}
@@ -178,7 +179,7 @@ export function AwardsInfoPageContent({
               />
             </aside>
 
-            <div className="space-y-6 md:space-y-8">
+            <div>
               {awards.map((award) => (
                 <AwardDetailCard
                   key={award.id}
