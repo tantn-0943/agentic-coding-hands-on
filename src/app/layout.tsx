@@ -22,6 +22,19 @@ const digitalFont = localFont({
 	display: "swap",
 });
 
+// SVN-Gotham: custom font for Kudos page
+// TODO: Uncomment when SVN-Gotham font files are obtained from design team
+// const svnGotham = localFont({
+// 	src: [
+// 		{ path: "../../public/fonts/SVN-Gotham-Regular.woff2", weight: "400", style: "normal" },
+// 		{ path: "../../public/fonts/SVN-Gotham-Medium.woff2", weight: "500", style: "normal" },
+// 		{ path: "../../public/fonts/SVN-Gotham-Bold.woff2", weight: "700", style: "normal" },
+// 	],
+// 	variable: "--font-svn-gotham",
+// 	display: "swap",
+// 	fallback: ["var(--font-montserrat)", "Arial", "sans-serif"],
+// });
+
 export const metadata: Metadata = {
 	title: "Sun Annual Awards 2025",
 	description: "Sun Annual Awards 2025 - Root Further",

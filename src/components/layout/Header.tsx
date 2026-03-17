@@ -11,7 +11,7 @@ import { createClient } from '@/libs/supabase/client'
 const NAV_LINKS = [
   { label: 'About SAA 2025', href: '/' },
   { label: 'Awards Information', href: '/award-information' },
-  { label: 'Sun* Kudos', href: '/sun-kudos' },
+  { label: 'Sun* Kudos', href: '/kudos' },
 ]
 
 export function Header() {

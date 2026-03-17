@@ -34,6 +34,56 @@
 		rgba(0, 18, 29, 0.46) 38.34%,
 		rgba(0, 19, 32, 0) 48.92%
 	);
+
+	/* ========================================
+	   Kudos Live Board Design Tokens
+	   Source: design-style.md
+	   ======================================== */
+
+	/* Colors */
+	--color-background: #00101a;
+	--color-container-dark: #00070c;
+	--color-header-bg: rgba(16, 20, 23, 0.8);
+	--color-primary-gold: #ffea9e;
+	--color-text-white: #ffffff;
+	--color-text-muted: #999999;
+	--color-card-bg: #2e3940;
+	--color-border-gold: #998c5f;
+	--color-divider: #2e3940;
+	--color-gold-light: #fff3c6;
+	--color-gold-hover: #fff8e1;
+	--color-secondary-btn: rgba(255, 234, 158, 0.1);
+	--color-secondary-btn-hover: rgba(255, 234, 158, 0.4);
+	--color-beige: #dbd1c1;
+	--color-error: #d4271d;
+	--color-heart-red: #f17676;
+
+	/* Gradients */
+	--gradient-hero-overlay: linear-gradient(
+		25deg,
+		#00101a 14.74%,
+		rgba(0, 19, 32, 0) 47.8%
+	);
+	--gradient-carousel-fade-right: linear-gradient(
+		90deg,
+		#00101a 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	--gradient-carousel-fade-left: linear-gradient(
+		270deg,
+		#00101a 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+
+	/* Spacing */
+	--spacing-page-x: 144px;
+	--spacing-page-x-tablet: 40px;
+	--spacing-page-x-mobile: 16px;
+
+	/* Shadows (text) */
+	--text-shadow-gold-glow: 0 4px 4px rgba(0, 0, 0, 0.25), 0 0 6px #fae287;
+	--text-shadow-white-glow: 0 0 1.3px #fff;
+	--text-shadow-dark: 0 0.386px 1.543px #000;
 }
 
 @theme inline {
@@ -41,6 +91,30 @@
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-montserrat);
 	--font-alt: var(--font-montserrat-alt);
+	/* SVN-Gotham: falls back to Montserrat until font files are installed */
+	--font-gotham: var(--font-svn-gotham, var(--font-montserrat));
+
+	/* Kudos color aliases for Tailwind */
+	--color-kudos-bg: var(--color-bg-page);
+	--color-kudos-gold: var(--color-primary-gold);
+	--color-kudos-card: var(--color-card-bg);
+	--color-kudos-border: var(--color-border-gold);
+	--color-kudos-muted: var(--color-text-muted);
+	--color-kudos-heart: var(--color-heart-red);
+	--color-kudos-error: var(--color-error);
+	--color-kudos-gold-hover: var(--color-gold-hover);
+}
+
+/* Kudos skeleton shimmer animation */
+@keyframes shimmer {
+	0% { background-position: -200% 0; }
+	100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+	background: linear-gradient(90deg, #2e3940 25%, #3a4850 50%, #2e3940 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
 }
 
 body {
