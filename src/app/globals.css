@@ -36,6 +36,14 @@
 	);
 
 	/* ========================================
+	   Viết Kudo Modal Design Tokens
+	   Source: specs/520-11602-viet-kudo/design-style.md
+	   ======================================== */
+	--color-modal-bg: #fff8e1;
+	--color-overlay: rgba(0, 16, 26, 0.80);
+	--color-required-red: #cf1322;
+
+	/* ========================================
 	   Kudos Live Board Design Tokens
 	   Source: design-style.md
 	   ======================================== */
@@ -110,6 +118,18 @@
 	0% { background-position: -200% 0; }
 	100% { background-position: 200% 0; }
 }
+
+/* Write Kudo modal animations */
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes scale-in {
+	from { opacity: 0; transform: scale(0.95); }
+	to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in { animation: fade-in 200ms ease-out; }
+.animate-scale-in { animation: scale-in 200ms ease-out; }
 
 .animate-shimmer {
 	background: linear-gradient(90deg, #2e3940 25%, #3a4850 50%, #2e3940 75%);

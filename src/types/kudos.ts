@@ -44,6 +44,8 @@ export interface Kudos {
   receiver_id: string
   content: string
   category_tag: string | null
+  is_anonymous: boolean
+  anonymous_name: string | null
   created_at: string
 }
 
@@ -101,4 +103,33 @@ export interface KudosFeedResponse {
 export interface FilterParams {
   hashtag?: string | null
   department?: string | null
+}
+
+// Viết Kudo (Write Kudos) types
+
+export interface CreateKudoInput {
+  receiver_id: string
+  category_tag: string
+  content: string
+  hashtag_ids: string[]
+  media_urls: string[]
+  is_anonymous: boolean
+  anonymous_name?: string
+}
+
+export interface WriteKudoState {
+  recipientId: string | null
+  recipientQuery: string
+  categoryTitle: string
+  editorContent: string
+  selectedHashtags: Hashtag[]
+  attachedImages: string[]
+  isAnonymous: boolean
+  anonymousName: string
+  isSubmitting: boolean
+  errors: Record<string, string>
+}
+
+export interface UploadResult {
+  url: string
 }

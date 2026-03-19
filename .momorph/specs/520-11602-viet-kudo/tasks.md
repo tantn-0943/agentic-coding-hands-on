@@ -21,12 +21,12 @@
 
 **Purpose**: Install dependencies, create project structure, prepare assets, run migration
 
-- [ ] T001 Install Tiptap packages and DOMPurify: `yarn add @tiptap/react @tiptap/starter-kit @tiptap/extension-link @tiptap/extension-mention @tiptap/extension-placeholder @tiptap/pm dompurify && yarn add -D @types/dompurify`
-- [ ] T002 [P] Add modal-specific CSS variables (`--color-modal-bg: #FFF8E1`, `--color-overlay: rgba(0,16,26,0.80)`, `--color-required-red: #CF1322`) | src/app/globals.css
-- [ ] T003 [P] Add new icon paths to Icon component: bold, italic, strikethrough, ordered-list, link, quote, close-x, plus, send, checkbox-checked | src/components/ui/Icon.tsx
-- [ ] T004 [P] Download UI assets from Figma (toolbar icons, send arrow) using `get_media_files` to public/icons/ | public/icons/
-- [ ] T005 [P] Create database migration to add `is_anonymous BOOLEAN DEFAULT false` and `anonymous_name TEXT` columns to `kudos` table | supabase/migrations/20260318000000_add_kudos_anonymous_fields.sql
-- [ ] T006 [P] Create Supabase Storage bucket `kudos-images` with authenticated upload policy, public read policy, 5MB max, and MIME type restriction (jpeg, png, gif, webp) | supabase/
+- [x] T001 Install Tiptap packages and DOMPurify: `yarn add @tiptap/react @tiptap/starter-kit @tiptap/extension-link @tiptap/extension-mention @tiptap/extension-placeholder @tiptap/pm dompurify && yarn add -D @types/dompurify`
+- [x] T002 [P] Add modal-specific CSS variables (`--color-modal-bg: #FFF8E1`, `--color-overlay: rgba(0,16,26,0.80)`, `--color-required-red: #CF1322`) | src/app/globals.css
+- [x] T003 [P] Add new icon paths to Icon component: bold, italic, strikethrough, ordered-list, link, quote, close-x, plus, send, checkbox-checked | src/components/ui/Icon.tsx
+- [x] T004 [P] Download UI assets from Figma (toolbar icons, send arrow) using `get_media_files` to public/icons/ | public/icons/
+- [x] T005 [P] Create database migration to add `is_anonymous BOOLEAN DEFAULT false` and `anonymous_name TEXT` columns to `kudos` table | supabase/migrations/20260318000000_add_kudos_anonymous_fields.sql
+- [x] T006 [P] Create Supabase Storage bucket `kudos-images` with authenticated upload policy, public read policy, 5MB max, and MIME type restriction (jpeg, png, gif, webp) | supabase/
 
 **Checkpoint**: Dependencies installed, assets ready, DB migration applied, storage bucket created
 
@@ -38,11 +38,11 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Add `CreateKudoInput`, `WriteKudoState`, and `UploadResult` interfaces to existing types file. Add `is_anonymous` and `anonymous_name` fields to `Kudos` interface | src/types/kudos.ts
-- [ ] T008 [P] Add `createKudoSchema` Zod validator: receiver_id (uuid, required), category_tag (string, 1-100, required), content (string, non-empty), hashtag_ids (array 1-5 uuids), media_urls (array 0-5 urls), is_anonymous (boolean, default false), anonymous_name (optional, max 50) | src/lib/kudos/validators.ts
-- [ ] T009 [P] Add `uploadImageSchema` Zod validator: file type (image/jpeg, image/png, image/gif, image/webp), max 5MB | src/lib/kudos/validators.ts
-- [ ] T010 Add `createKudo` Server Action: validate with Zod → auth check → insert kudos row → insert kudos_hashtags rows → insert kudos_media rows → return `{ success, kudosId }` | src/lib/kudos/actions.ts
-- [ ] T011 Add `uploadKudoImage` Server Action: validate file type/size → auth check → upload to Supabase Storage `kudos-images/{userId}/{timestamp}-{filename}` → return `{ url }` | src/lib/kudos/actions.ts
+- [x] T007 Add `CreateKudoInput`, `WriteKudoState`, and `UploadResult` interfaces to existing types file. Add `is_anonymous` and `anonymous_name` fields to `Kudos` interface | src/types/kudos.ts
+- [x] T008 [P] Add `createKudoSchema` Zod validator: receiver_id (uuid, required), category_tag (string, 1-100, required), content (string, non-empty), hashtag_ids (array 1-5 uuids), media_urls (array 0-5 urls), is_anonymous (boolean, default false), anonymous_name (optional, max 50) | src/lib/kudos/validators.ts
+- [x] T009 [P] Add `uploadImageSchema` Zod validator: file type (image/jpeg, image/png, image/gif, image/webp), max 5MB | src/lib/kudos/validators.ts
+- [x] T010 Add `createKudo` Server Action: validate with Zod → auth check → insert kudos row → insert kudos_hashtags rows → insert kudos_media rows → return `{ success, kudosId }` | src/lib/kudos/actions.ts
+- [x] T011 Add `uploadKudoImage` Server Action: validate file type/size → auth check → upload to Supabase Storage `kudos-images/{userId}/{timestamp}-{filename}` → return `{ url }` | src/lib/kudos/actions.ts
 
 ### Tests (Foundation)
 
@@ -61,12 +61,12 @@
 
 ### Frontend (US7)
 
-- [ ] T014 [US7] Create `WriteKudoModal` component: overlay (fixed inset-0, z-50, bg rgba(0,16,26,0.8)), dialog container (752px, bg #FFF8E1, rounded-3xl, p-10, flex-col gap-8), focus trap, Escape key handler, click-outside-to-close | src/components/kudos/write/WriteKudoModal.tsx
-- [ ] T015 [US7] Create `WriteKudoForm` component: form layout skeleton with title "Gửi lời cám ơn và ghi nhận đến đồng đội" (32px, centered), section gap 32px for modal children, 24px gap for Content section. Renders placeholder slots for each form section | src/components/kudos/write/WriteKudoForm.tsx
-- [ ] T016 [US7] Create `FormActions` component: Cancel button ("Hủy ✕", 16px 40px padding, 4px radius, gold/10 bg, border #998C5F) + Submit button ("Gửi ▷", flex-1, 60px height, 8px radius, #FFEA9E bg, 22px bold). Submit accepts `disabled` and `isLoading` props | src/components/kudos/write/FormActions.tsx
-- [ ] T017 [US7] Update `HeroBanner` to accept and pass `onOpenDialog` prop to `KudosSearchInput` | src/components/kudos/HeroBanner.tsx
-- [ ] T018 [US7] Update `WidgetButton` to add "Viết Kudo" menu item that calls `onOpenDialog` prop | src/components/layout/WidgetButton.tsx
-- [ ] T019 [US7] Wire modal to Live Board page: create Client Component wrapper managing `isModalOpen` state, render `HeroBanner` with `onOpenDialog`, render `WriteKudoModal` conditionally, pass `onClose` callback | src/app/sun-kudos/
+- [x] T014 [US7] Create `WriteKudoModal` component: overlay (fixed inset-0, z-50, bg rgba(0,16,26,0.8)), dialog container (752px, bg #FFF8E1, rounded-3xl, p-10, flex-col gap-8), focus trap, Escape key handler, click-outside-to-close | src/components/kudos/write/WriteKudoModal.tsx
+- [x] T015 [US7] Create `WriteKudoForm` component: form layout skeleton with title "Gửi lời cám ơn và ghi nhận đến đồng đội" (32px, centered), section gap 32px for modal children, 24px gap for Content section. Renders placeholder slots for each form section | src/components/kudos/write/WriteKudoForm.tsx
+- [x] T016 [US7] Create `FormActions` component: Cancel button ("Hủy ✕", 16px 40px padding, 4px radius, gold/10 bg, border #998C5F) + Submit button ("Gửi ▷", flex-1, 60px height, 8px radius, #FFEA9E bg, 22px bold). Submit accepts `disabled` and `isLoading` props | src/components/kudos/write/FormActions.tsx
+- [x] T017 [US7] Update `HeroBanner` to accept and pass `onOpenDialog` prop to `KudosSearchInput` | src/components/kudos/HeroBanner.tsx
+- [x] T018 [US7] Update `WidgetButton` to add "Viết Kudo" menu item that calls `onOpenDialog` prop | src/components/layout/WidgetButton.tsx
+- [x] T019 [US7] Wire modal to Live Board page: create Client Component wrapper managing `isModalOpen` state, render `HeroBanner` with `onOpenDialog`, render `WriteKudoModal` conditionally, pass `onClose` callback | src/app/sun-kudos/
 
 ### Tests (US7)
 
@@ -84,7 +84,7 @@
 
 ### Frontend (US2)
 
-- [ ] T021 [US2] Create `RecipientField` component: "Người nhận" label (22px, bold) + red asterisk (16px, Noto Sans JP, #CF1322) + search input (flex-1, h-56px, px-24, rounded-lg, border #998C5F, bg white). Reuse `useProfileSearch()` hook. Show dropdown with Avatar + name + department. On select: fill field, call `onSelect(userId)`. On clear: reset. Error state: red border #CF1322 when `error` prop truthy | src/components/kudos/write/RecipientField.tsx
+- [x] T021 [US2] Create `RecipientField` component: "Người nhận" label (22px, bold) + red asterisk (16px, Noto Sans JP, #CF1322) + search input (flex-1, h-56px, px-24, rounded-lg, border #998C5F, bg white). Reuse `useProfileSearch()` hook. Show dropdown with Avatar + name + department. On select: fill field, call `onSelect(userId)`. On clear: reset. Error state: red border #CF1322 when `error` prop truthy | src/components/kudos/write/RecipientField.tsx
 
 ### Tests (US2)
 
@@ -102,8 +102,8 @@
 
 ### Frontend (US3)
 
-- [ ] T023 [P] [US3] Create `EditorToolbar` component: flex row, h-40px, border #998C5F, rounded-t-lg (8px 8px 0 0). 6 toggle buttons (B, I, S, OrderedList, Link, Quote) using Icon component, each 10px 16px padding, border-right separator. Active state: bg rgba(255,234,158,0.20). "Tiêu chuẩn cộng đồng" link (16px, #FFEA9E) right-aligned. Accepts `editor` instance prop | src/components/kudos/write/EditorToolbar.tsx
-- [ ] T024 [US3] Create `RichTextEditor` component: Tiptap editor with StarterKit (Bold, Italic, Strike, OrderedList, Blockquote) + Link extension + Placeholder ("Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!") + Mention extension with suggestion config. Editor container: w-full, min-h-200px, p-16px 24px, bg white, border #998C5F, rounded-b-lg (0 0 8px 8px). Mention suggestion: `items({ query })` fetches `/api/users/search?q=${query}` debounced 300ms, max 10 results. Render floating dropdown with Avatar + name. Hint text below editor: "Bạn có thể '@ + tên' để nhắc tới đồng nghiệp khác" (16px, centered). Exposes `getHTML()` for form submission | src/components/kudos/write/RichTextEditor.tsx
+- [x] T023 [P] [US3] Create `EditorToolbar` component: flex row, h-40px, border #998C5F, rounded-t-lg (8px 8px 0 0). 6 toggle buttons (B, I, S, OrderedList, Link, Quote) using Icon component, each 10px 16px padding, border-right separator. Active state: bg rgba(255,234,158,0.20). "Tiêu chuẩn cộng đồng" link (16px, #FFEA9E) right-aligned. Accepts `editor` instance prop | src/components/kudos/write/EditorToolbar.tsx
+- [x] T024 [US3] Create `RichTextEditor` component: Tiptap editor with StarterKit (Bold, Italic, Strike, OrderedList, Blockquote) + Link extension + Placeholder ("Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!") + Mention extension with suggestion config. Editor container: w-full, min-h-200px, p-16px 24px, bg white, border #998C5F, rounded-b-lg (0 0 8px 8px). Mention suggestion: `items({ query })` fetches `/api/users/search?q=${query}` debounced 300ms, max 10 results. Render floating dropdown with Avatar + name. Hint text below editor: "Bạn có thể '@ + tên' để nhắc tới đồng nghiệp khác" (16px, centered). Exposes `getHTML()` for form submission | src/components/kudos/write/RichTextEditor.tsx
 
 ### Tests (US3)
 
@@ -121,9 +121,9 @@
 
 ### Frontend (US1)
 
-- [ ] T026 [US1] Create `CategoryField` component: "Danh hiệu" label (22px, bold) + red asterisk + text input (same style as RecipientField: h-56px, px-24, rounded-lg, border #998C5F, bg white, placeholder "Dành tặng một danh hiệu cho đồng đội"). Description hint below: "Ví dụ: Người truyền động lực cho tôi. Danh hiệu sẽ hiển thị làm tiêu đề Kudos của bạn." (16px, #999) | src/components/kudos/write/CategoryField.tsx
-- [ ] T027 [US1] Create `useWriteKudo` hook: manage all form state (recipientId, recipientQuery, categoryTitle, editorContent, selectedHashtags, attachedImages, isAnonymous, anonymousName, isSubmitting, errors). `validate()` checks required fields (recipientId, categoryTitle, editorContent non-empty, selectedHashtags.length >= 1), returns errors map. `submit()` calls DOMPurify.sanitize(content) client-side → calls `createKudo` Server Action → on success: calls `onClose()` + `router.refresh()` → on error: shows Toast, preserves form data. `reset()` clears all state. `isValid` computed boolean for submit button disabled state | src/hooks/useWriteKudo.ts
-- [ ] T028 [US1] Integrate all components into `WriteKudoForm`: wire `RecipientField` + `CategoryField` + `RichTextEditor`/`EditorToolbar` + `FormActions` with `useWriteKudo` hook. Connect submit button disabled to `!isValid`, loading to `isSubmitting`. Add placeholder sections for HashtagSection and ImageSection (will be filled in US4/US5) | src/components/kudos/write/WriteKudoForm.tsx
+- [x] T026 [US1] Create `CategoryField` component: "Danh hiệu" label (22px, bold) + red asterisk + text input (same style as RecipientField: h-56px, px-24, rounded-lg, border #998C5F, bg white, placeholder "Dành tặng một danh hiệu cho đồng đội"). Description hint below: "Ví dụ: Người truyền động lực cho tôi. Danh hiệu sẽ hiển thị làm tiêu đề Kudos của bạn." (16px, #999) | src/components/kudos/write/CategoryField.tsx
+- [x] T027 [US1] Create `useWriteKudo` hook: manage all form state (recipientId, recipientQuery, categoryTitle, editorContent, selectedHashtags, attachedImages, isAnonymous, anonymousName, isSubmitting, errors). `validate()` checks required fields (recipientId, categoryTitle, editorContent non-empty, selectedHashtags.length >= 1), returns errors map. `submit()` calls DOMPurify.sanitize(content) client-side → calls `createKudo` Server Action → on success: calls `onClose()` + `router.refresh()` → on error: shows Toast, preserves form data. `reset()` clears all state. `isValid` computed boolean for submit button disabled state | src/hooks/useWriteKudo.ts
+- [x] T028 [US1] Integrate all components into `WriteKudoForm`: wire `RecipientField` + `CategoryField` + `RichTextEditor`/`EditorToolbar` + `FormActions` with `useWriteKudo` hook. Connect submit button disabled to `!isValid`, loading to `isSubmitting`. Add placeholder sections for HashtagSection and ImageSection (will be filled in US4/US5) | src/components/kudos/write/WriteKudoForm.tsx
 
 ### Tests (US1)
 
@@ -142,8 +142,8 @@
 
 ### Frontend (US4)
 
-- [ ] T031 [US4] Create `HashtagSection` component: "Hashtag" label (22px, bold) + red asterisk + "+ Hashtag" button (chip style: h-48px, px-8, rounded-lg, border #998C5F, bg white, 11px text). On click: fetch `/api/hashtags`, show dropdown. Selected hashtags render as chips (same chip style) with "x" close button. "Tối đa 5" note (11px, #999). Hide "+ Hashtag" when 5 selected. Calls `onAdd(hashtagId)` and `onRemove(hashtagId)` | src/components/kudos/write/HashtagSection.tsx
-- [ ] T032 [US4] Wire `HashtagSection` into `WriteKudoForm`: connect to `useWriteKudo.selectedHashtags`, add/remove handlers, show validation error when 0 hashtags on submit | src/components/kudos/write/WriteKudoForm.tsx
+- [x] T031 [US4] Create `HashtagSection` component: "Hashtag" label (22px, bold) + red asterisk + "+ Hashtag" button (chip style: h-48px, px-8, rounded-lg, border #998C5F, bg white, 11px text). On click: fetch `/api/hashtags`, show dropdown. Selected hashtags render as chips (same chip style) with "x" close button. "Tối đa 5" note (11px, #999). Hide "+ Hashtag" when 5 selected. Calls `onAdd(hashtagId)` and `onRemove(hashtagId)` | src/components/kudos/write/HashtagSection.tsx
+- [x] T032 [US4] Wire `HashtagSection` into `WriteKudoForm`: connect to `useWriteKudo.selectedHashtags`, add/remove handlers, show validation error when 0 hashtags on submit | src/components/kudos/write/WriteKudoForm.tsx
 
 ### Tests (US4)
 
@@ -161,8 +161,8 @@
 
 ### Frontend (US5)
 
-- [ ] T034 [US5] Create `ImageSection` component: "Image" label (22px, bold, no asterisk). Thumbnails row: 80x80px, rounded-4px, border 1px #FFEA9E, object-cover. Delete button: absolute top-right (-6px), 20x20, bg #D4271D, rounded-full, white "x" icon. "+ Image" button (same chip style as hashtag: h-48px, px-8, rounded-lg, border #998C5F). "Tối đa 5" note. File picker accepts image/jpeg,png,gif,webp. On file select: call `uploadKudoImage` Server Action eagerly → show loading on thumbnail → on success show image → on error show Toast. Hide button when 5 attached. Calls `onUpload(url)` and `onRemove(index)` | src/components/kudos/write/ImageSection.tsx
-- [ ] T035 [US5] Wire `ImageSection` into `WriteKudoForm`: connect to `useWriteKudo.attachedImages`, upload/remove handlers | src/components/kudos/write/WriteKudoForm.tsx
+- [x] T034 [US5] Create `ImageSection` component: "Image" label (22px, bold, no asterisk). Thumbnails row: 80x80px, rounded-4px, border 1px #FFEA9E, object-cover. Delete button: absolute top-right (-6px), 20x20, bg #D4271D, rounded-full, white "x" icon. "+ Image" button (same chip style as hashtag: h-48px, px-8, rounded-lg, border #998C5F). "Tối đa 5" note. File picker accepts image/jpeg,png,gif,webp. On file select: call `uploadKudoImage` Server Action eagerly → show loading on thumbnail → on success show image → on error show Toast. Hide button when 5 attached. Calls `onUpload(url)` and `onRemove(index)` | src/components/kudos/write/ImageSection.tsx
+- [x] T035 [US5] Wire `ImageSection` into `WriteKudoForm`: connect to `useWriteKudo.attachedImages`, upload/remove handlers | src/components/kudos/write/WriteKudoForm.tsx
 
 ### Tests (US5)
 
@@ -180,8 +180,8 @@
 
 ### Frontend (US6)
 
-- [ ] T037 [US6] Create `AnonymousToggle` component: flex row, gap 16px. Checkbox: 24x24, rounded-4px, border 1px #999, bg white. Label: "Gửi lời cám ơn và ghi nhận ẩn danh" (22px, #999). When checked: show text input below (h-56px, same style as other inputs, placeholder "Nhập tên ẩn danh"). When unchecked: hide input, clear value. Calls `onToggle(isAnonymous)` and `onNameChange(name)` | src/components/kudos/write/AnonymousToggle.tsx
-- [ ] T038 [US6] Wire `AnonymousToggle` into `WriteKudoForm`: connect to `useWriteKudo.isAnonymous` and `useWriteKudo.anonymousName` | src/components/kudos/write/WriteKudoForm.tsx
+- [x] T037 [US6] Create `AnonymousToggle` component: flex row, gap 16px. Checkbox: 24x24, rounded-4px, border 1px #999, bg white. Label: "Gửi lời cám ơn và ghi nhận ẩn danh" (22px, #999). When checked: show text input below (h-56px, same style as other inputs, placeholder "Nhập tên ẩn danh"). When unchecked: hide input, clear value. Calls `onToggle(isAnonymous)` and `onNameChange(name)` | src/components/kudos/write/AnonymousToggle.tsx
+- [x] T038 [US6] Wire `AnonymousToggle` into `WriteKudoForm`: connect to `useWriteKudo.isAnonymous` and `useWriteKudo.anonymousName` | src/components/kudos/write/WriteKudoForm.tsx
 
 ### Tests (US6)
 
@@ -195,11 +195,11 @@
 
 **Purpose**: Accessibility, responsive design, animations, error handling
 
-- [ ] T040 [P] Add ARIA attributes to `WriteKudoModal`: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` pointing to title, label all form fields with `aria-label` or `<label>` | src/components/kudos/write/WriteKudoModal.tsx
-- [ ] T041 [P] Add responsive styles to `WriteKudoModal`: mobile (< 768px) fullscreen w-full h-full rounded-0 p-16px, tablet (768-1023px) w-90vw max-w-752px, desktop (>= 1024px) w-752px centered. Adjust field rows to stack vertically on mobile, image thumbnails 60x60 on mobile | src/components/kudos/write/WriteKudoModal.tsx
-- [ ] T042 [P] Add modal open/close animations: overlay opacity 200ms ease-out, dialog opacity + scale(0.95→1) 200ms ease-out | src/components/kudos/write/WriteKudoModal.tsx
+- [x] T040 [P] Add ARIA attributes to `WriteKudoModal`: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` pointing to title, label all form fields with `aria-label` or `<label>` | src/components/kudos/write/WriteKudoModal.tsx
+- [x] T041 [P] Add responsive styles to `WriteKudoModal`: mobile (< 768px) fullscreen w-full h-full rounded-0 p-16px, tablet (768-1023px) w-90vw max-w-752px, desktop (>= 1024px) w-752px centered. Adjust field rows to stack vertically on mobile, image thumbnails 60x60 on mobile | src/components/kudos/write/WriteKudoModal.tsx
+- [x] T042 [P] Add modal open/close animations: overlay opacity 200ms ease-out, dialog opacity + scale(0.95→1) 200ms ease-out | src/components/kudos/write/WriteKudoModal.tsx
 - [ ] T043 [P] Add error toast integration: network failure on submit → Toast "Gửi thất bại, vui lòng thử lại", image upload failure → Toast "Tải ảnh thất bại", session expired → redirect to login | src/hooks/useWriteKudo.ts
-- [ ] T044 [P] Add toolbar button hover/active transitions: bg-color 150ms ease-in-out for toolbar, submit, and cancel buttons per design-style.md animation specs | src/components/kudos/write/EditorToolbar.tsx
+- [x] T044 [P] Add toolbar button hover/active transitions: bg-color 150ms ease-in-out for toolbar, submit, and cancel buttons per design-style.md animation specs | src/components/kudos/write/EditorToolbar.tsx
 - [ ] T045 E2E test for responsive modal: verify mobile fullscreen, desktop centered, keyboard navigation (Tab cycling, Escape close) | tests/e2e/write-kudo.spec.ts
 
 **Checkpoint**: Feature is polished, accessible, responsive, and production-ready

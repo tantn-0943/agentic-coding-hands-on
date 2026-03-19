@@ -3,14 +3,32 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-export function WidgetButton() {
+interface WidgetButtonProps {
+  onOpenWriteKudo?: () => void
+}
+
+export function WidgetButton({ onOpenWriteKudo }: WidgetButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleWriteKudo = () => {
+    setIsOpen(false)
+    onOpenWriteKudo?.()
+  }
 
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-2">
       {isOpen && (
         <ul className="bg-[#0F1923] border border-[#FFEA9E]/20 rounded-lg shadow-lg overflow-hidden w-40">
-          {/* TODO: populate menu items */}
+          <li>
+            <button
+              type="button"
+              onClick={handleWriteKudo}
+              className="w-full px-4 py-3 text-left text-sm font-bold text-white hover:bg-[#FFEA9E]/10 transition-colors"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Viết Kudo
+            </button>
+          </li>
         </ul>
       )}
       <button

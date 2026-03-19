@@ -2,7 +2,11 @@ import Image from 'next/image'
 import { KudosSearchInput } from './KudosSearchInput'
 import { ProfileSearchBar } from './ProfileSearchBar'
 
-export function HeroBanner() {
+interface HeroBannerProps {
+  onOpenWriteKudo?: () => void
+}
+
+export function HeroBanner({ onOpenWriteKudo }: HeroBannerProps) {
   return (
     <section
       className="relative flex h-[400px] flex-col justify-end overflow-hidden bg-[var(--color-bg-page)] px-4 pb-12 md:h-[512px] md:px-10 lg:px-[var(--spacing-page-x)]"
@@ -42,7 +46,7 @@ export function HeroBanner() {
         </div>
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
           <div className="flex-1">
-            <KudosSearchInput />
+            <KudosSearchInput onOpenDialog={onOpenWriteKudo} />
           </div>
           <ProfileSearchBar />
         </div>
