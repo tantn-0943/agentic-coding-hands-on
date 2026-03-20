@@ -8,9 +8,10 @@ interface ImageSectionProps {
   images: string[]
   onUpload: (url: string) => void
   onRemove: (index: number) => void
+  onUploadError?: (message: string) => void
 }
 
-export function ImageSection({ images, onUpload, onRemove }: ImageSectionProps) {
+export function ImageSection({ images, onUpload, onRemove, onUploadError }: ImageSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isUploading, setIsUploading] = useState(false)
 
@@ -24,8 +25,9 @@ export function ImageSection({ images, onUpload, onRemove }: ImageSectionProps) 
       formData.append('file', file)
       const result = await uploadKudoImage(formData)
       onUpload(result.url)
-    } catch {
-      // Error handled by parent via toast
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Tải ảnh thất bại'
+      onUploadError?.(message)
     } finally {
       setIsUploading(false)
       if (fileInputRef.current) fileInputRef.current.value = ''

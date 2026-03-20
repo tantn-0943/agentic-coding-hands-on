@@ -46,8 +46,8 @@
 
 ### Tests (Foundation)
 
-- [ ] T012 [P] Unit tests for `createKudoSchema`: valid input passes, missing required fields fail, hashtag count boundaries (0 fails, 1 passes, 5 passes, 6 fails), media_urls max 5, anonymous_name max 50 chars | tests/unit/createKudoSchema.test.ts
-- [ ] T013 [P] Integration test for `createKudo` Server Action: creates kudos with hashtags and media, rejects unauthenticated, rejects invalid input | tests/integration/createKudo.test.ts
+- [x] T012 [P] Unit tests for `createKudoSchema`: valid input passes, missing required fields fail, hashtag count boundaries (0 fails, 1 passes, 5 passes, 6 fails), media_urls max 5, anonymous_name max 50 chars | tests/unit/createKudoSchema.test.ts
+- [x] T013 [P] Integration test for `createKudo` Server Action: creates kudos with hashtags and media, rejects unauthenticated, rejects invalid input | tests/integration/createKudo.test.ts
 
 **Checkpoint**: Foundation ready — types, validators, server actions all in place. User story implementation can begin.
 
@@ -70,7 +70,7 @@
 
 ### Tests (US7)
 
-- [ ] T020 [P] [US7] Unit test for `WriteKudoModal`: renders when open, fires onClose on Escape, fires onClose on overlay click, traps focus within dialog | tests/unit/WriteKudoModal.test.tsx
+- [x] T020 [P] [US7] Unit test for `WriteKudoModal`: renders when open, fires onClose on Escape, fires onClose on overlay click, traps focus within dialog | tests/unit/WriteKudoModal.test.tsx
 
 **Checkpoint**: Modal shell works — opens from Live Board search input + WidgetButton, closes correctly, focus trap active
 
@@ -88,7 +88,7 @@
 
 ### Tests (US2)
 
-- [ ] T022 [P] [US2] Unit test for `RecipientField`: renders label + input, shows dropdown on typing, selects recipient on click, shows error state, clears on reset | tests/unit/RecipientField.test.tsx
+- [x] T022 [P] [US2] Unit test for `RecipientField`: renders label + input, shows dropdown on typing, selects recipient on click, shows error state, clears on reset | tests/unit/RecipientField.test.tsx
 
 **Checkpoint**: Recipient search works independently in the modal
 
@@ -107,7 +107,7 @@
 
 ### Tests (US3)
 
-- [ ] T025 [P] [US3] Unit test for `EditorToolbar`: renders 6 buttons, toggles active state on click, calls editor commands | tests/unit/EditorToolbar.test.tsx
+- [x] T025 [P] [US3] Unit test for `EditorToolbar`: renders 6 buttons, toggles active state on click, calls editor commands | tests/unit/EditorToolbar.test.tsx
 
 **Checkpoint**: Rich text editor works with all formatting options and @mention
 
@@ -127,8 +127,8 @@
 
 ### Tests (US1)
 
-- [ ] T029 [P] [US1] Unit test for `useWriteKudo` hook: validates required fields, submit calls createKudo with sanitized HTML, handles success (calls onClose + router.refresh), handles error (preserves form data, shows error), reset clears state | tests/unit/useWriteKudo.test.ts
-- [ ] T030 [US1] E2E test: open modal → fill recipient → fill category → type content → add hashtag (mock) → submit → verify modal closes → verify feed refreshes | tests/e2e/write-kudo.spec.ts
+- [x] T029 [P] [US1] Unit test for `useWriteKudo` hook: validates required fields, submit calls createKudo with sanitized HTML, handles success (calls onClose + router.refresh), handles error (preserves form data, shows error), reset clears state | tests/unit/useWriteKudo.test.ts
+- [x] T030 [US1] E2E test: open modal → fill recipient → fill category → type content → add hashtag (mock) → submit → verify modal closes → verify feed refreshes | tests/e2e/write-kudo.spec.ts
 
 **Checkpoint**: Core MVP complete — users can compose and submit kudos with all required fields
 
@@ -147,7 +147,7 @@
 
 ### Tests (US4)
 
-- [ ] T033 [P] [US4] Unit test for `HashtagSection`: renders button + label, opens dropdown, adds chips on select, removes on "x" click, hides button at max 5, shows error when empty | tests/unit/HashtagSection.test.tsx
+- [x] T033 [P] [US4] Unit test for `HashtagSection`: renders button + label, opens dropdown, adds chips on select, removes on "x" click, hides button at max 5, shows error when empty | tests/unit/HashtagSection.test.tsx
 
 **Checkpoint**: Hashtag picker fully functional with min 1 / max 5 enforcement
 
@@ -166,7 +166,7 @@
 
 ### Tests (US5)
 
-- [ ] T036 [P] [US5] Unit test for `ImageSection`: renders thumbnails, triggers file picker, shows loading during upload, shows thumbnail on success, removes on delete click, hides button at max 5 | tests/unit/ImageSection.test.tsx
+- [x] T036 [P] [US5] Unit test for `ImageSection`: renders thumbnails, triggers file picker, shows loading during upload, shows thumbnail on success, removes on delete click, hides button at max 5 | tests/unit/ImageSection.test.tsx
 
 **Checkpoint**: Image upload/delete works with eager upload to Supabase Storage
 
@@ -185,7 +185,7 @@
 
 ### Tests (US6)
 
-- [ ] T039 [P] [US6] Unit test for `AnonymousToggle`: renders checkbox + label, shows input on check, hides on uncheck, clears name on uncheck | tests/unit/AnonymousToggle.test.tsx
+- [x] T039 [P] [US6] Unit test for `AnonymousToggle`: renders checkbox + label, shows input on check, hides on uncheck, clears name on uncheck | tests/unit/AnonymousToggle.test.tsx
 
 **Checkpoint**: Anonymous mode works with conditional name field
 
@@ -198,9 +198,9 @@
 - [x] T040 [P] Add ARIA attributes to `WriteKudoModal`: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` pointing to title, label all form fields with `aria-label` or `<label>` | src/components/kudos/write/WriteKudoModal.tsx
 - [x] T041 [P] Add responsive styles to `WriteKudoModal`: mobile (< 768px) fullscreen w-full h-full rounded-0 p-16px, tablet (768-1023px) w-90vw max-w-752px, desktop (>= 1024px) w-752px centered. Adjust field rows to stack vertically on mobile, image thumbnails 60x60 on mobile | src/components/kudos/write/WriteKudoModal.tsx
 - [x] T042 [P] Add modal open/close animations: overlay opacity 200ms ease-out, dialog opacity + scale(0.95→1) 200ms ease-out | src/components/kudos/write/WriteKudoModal.tsx
-- [ ] T043 [P] Add error toast integration: network failure on submit → Toast "Gửi thất bại, vui lòng thử lại", image upload failure → Toast "Tải ảnh thất bại", session expired → redirect to login | src/hooks/useWriteKudo.ts
+- [x] T043 [P] Add error toast integration: network failure on submit → Toast "Gửi thất bại, vui lòng thử lại", image upload failure → Toast "Tải ảnh thất bại", session expired → redirect to login | src/hooks/useWriteKudo.ts
 - [x] T044 [P] Add toolbar button hover/active transitions: bg-color 150ms ease-in-out for toolbar, submit, and cancel buttons per design-style.md animation specs | src/components/kudos/write/EditorToolbar.tsx
-- [ ] T045 E2E test for responsive modal: verify mobile fullscreen, desktop centered, keyboard navigation (Tab cycling, Escape close) | tests/e2e/write-kudo.spec.ts
+- [x] T045 E2E test for responsive modal: verify mobile fullscreen, desktop centered, keyboard navigation (Tab cycling, Escape close) | tests/e2e/write-kudo.spec.ts
 
 **Checkpoint**: Feature is polished, accessible, responsive, and production-ready
 

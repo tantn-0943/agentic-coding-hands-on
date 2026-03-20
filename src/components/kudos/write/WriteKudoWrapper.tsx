@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { useWriteKudo } from '@/hooks/useWriteKudo'
+import { useToast } from '@/hooks/useToast'
 import { WriteKudoModal } from './WriteKudoModal'
 import { WriteKudoForm } from './WriteKudoForm'
 import { RecipientField } from './RecipientField'
@@ -10,6 +11,7 @@ import { RichTextEditor } from './RichTextEditor'
 import { HashtagSection } from './HashtagSection'
 import { ImageSection } from './ImageSection'
 import { AnonymousToggle } from './AnonymousToggle'
+import { Toast } from '@/components/ui/Toast'
 
 interface WriteKudoWrapperProps {
   children: (props: { onOpenWriteKudo: () => void }) => React.ReactNode
@@ -17,6 +19,7 @@ interface WriteKudoWrapperProps {
 
 export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const toast = useToast()
 
   const handleOpen = useCallback(() => setIsModalOpen(true), [])
   const handleClose = useCallback(() => {
@@ -24,7 +27,7 @@ export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
     form.reset()
   }, [])
 
-  const form = useWriteKudo({ onClose: () => setIsModalOpen(false) })
+  const form = useWriteKudo({ onClose: () => setIsModalOpen(false), showToast: toast.showToast })
 
   return (
     <>
@@ -67,6 +70,7 @@ export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
               images={form.attachedImages}
               onUpload={form.addImage}
               onRemove={form.removeImage}
+              onUploadError={toast.showToast}
             />
           }
           anonymousSlot={
@@ -83,6 +87,8 @@ export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
           onCancel={handleClose}
         />
       </WriteKudoModal>
+
+      <Toast message={toast.message} visible={toast.visible} onDismiss={toast.hideToast} />
     </>
   )
 }

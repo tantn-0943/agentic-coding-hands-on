@@ -8,9 +8,10 @@ import type { Hashtag } from '@/types/kudos'
 
 interface UseWriteKudoProps {
   onClose: () => void
+  showToast?: (message: string) => void
 }
 
-export function useWriteKudo({ onClose }: UseWriteKudoProps) {
+export function useWriteKudo({ onClose, showToast }: UseWriteKudoProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
@@ -74,6 +75,11 @@ export function useWriteKudo({ onClose }: UseWriteKudoProps) {
       })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Gửi thất bại, vui lòng thử lại'
+      if (message === 'Unauthorized') {
+        router.push('/login')
+        return
+      }
+      showToast?.(message)
       setErrors(prev => ({ ...prev, submit: message }))
     } finally {
       setIsSubmitting(false)
