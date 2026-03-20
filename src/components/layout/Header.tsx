@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import Logo from '@/components/ui/Logo'
-import LanguageSelector from '@/components/auth/LanguageSelector'
+import { LanguageSelector } from '@/components/auth/LanguageSelector'
 import type { NotificationsResponse } from '@/types/notifications'
 import { createClient } from '@/libs/supabase/client'
 

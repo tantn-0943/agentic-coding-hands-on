@@ -2,7 +2,7 @@ import Image from 'next/image'
 import type { LoginPageProps } from '@/types/auth'
 import Logo from '@/components/ui/Logo'
 import LoginButton from '@/components/auth/LoginButton'
-import LanguageSelector from '@/components/auth/LanguageSelector'
+import { LanguageSelector } from '@/components/auth/LanguageSelector'
 
 function getSafeReturnTo(returnTo: string | undefined): string | undefined {
   if (!returnTo) return undefined

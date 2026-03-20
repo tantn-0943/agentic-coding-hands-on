@@ -21,10 +21,10 @@
 
 **Purpose**: Create locale infrastructure, assets, and types required by all user stories
 
-- [ ] T001 [P] Add UK flag SVG asset (`en-flag.svg`) to public/icons/ — download from Figma using `get_media_files` or create manually | public/icons/en-flag.svg
-- [ ] T002 [P] Create `Locale` type (`{ code: 'vi' | 'en', label: 'VN' | 'EN', flagSrc: string }`) and `LOCALES` constant array in types file | src/types/locale.ts
-- [ ] T003 Create `LocaleProvider` context and `useLocale()` hook: React Context holding `locale` + `setLocale`, cookie read on init (name: `NEXT_LOCALE`, default: `vi`), cookie write on change (`Path=/; SameSite=Lax; Max-Age=31536000`). Export both `LocaleProvider` and `useLocale` | src/hooks/useLocale.tsx
-- [ ] T004 Wrap app with `<LocaleProvider>`: import and wrap `{children}` in root layout | src/app/layout.tsx
+- [x] T001 [P] Add UK flag SVG asset (`en-flag.svg`) to public/icons/ — download from Figma using `get_media_files` or create manually | public/icons/en-flag.svg
+- [x] T002 [P] Create `Locale` type (`{ code: 'vi' | 'en', label: 'VN' | 'EN', flagSrc: string }`) and `LOCALES` constant array in types file | src/types/locale.ts
+- [x] T003 Create `LocaleProvider` context and `useLocale()` hook: React Context holding `locale` + `setLocale`, cookie read on init (name: `NEXT_LOCALE`, default: `vi`), cookie write on change (`Path=/; SameSite=Lax; Max-Age=31536000`). Export both `LocaleProvider` and `useLocale` | src/hooks/useLocale.tsx
+- [x] T004 Wrap app with `<LocaleProvider>`: import and wrap `{children}` in root layout | src/app/layout.tsx
 
 **Checkpoint**: Locale infrastructure ready — `useLocale()` returns current locale and `setLocale()` writes cookie. No UI changes yet.
 
@@ -38,12 +38,12 @@
 
 ### Frontend (US1 + US2)
 
-- [ ] T005 [US1] Create `LanguageDropdown` component: dropdown panel with `role="listbox"`, dark bg (#00070C), border 1px #998C5F, rounded-lg, p-1.5, position absolute right-0 top-full mt-2 z-50. Renders 2 `LanguageOption` buttons from `LOCALES` array. Each option: `role="option"`, `aria-selected`, h-14, px-4, rounded, flex items-center gap-1, flag icon (next/image 24x24) + label text (16px, 700, white, Montserrat, tracking-[0.15px]). Selected: bg rgba(255,234,158,0.20). Unselected: bg transparent, hover bg rgba(255,234,158,0.10). Transition bg 150ms ease-in-out. Accepts `selectedLocale`, `onSelect(code)`, `onClose()` props | src/components/auth/LanguageDropdown.tsx
-- [ ] T006 [US2] Refactor `LanguageSelector` to named export. Add `isOpen` state, wrap in relative div. On button click: toggle `isOpen`. Update `aria-expanded` dynamically. When `isOpen`: render `<LanguageDropdown>`. Read current locale from `useLocale()`. Update trigger button flag src + label dynamically based on locale. On option select: call `setLocale(code)` + close. Add open/close animation: dropdown transitions opacity 0→1 + translateY(-4px→0) 150ms ease-out | src/components/auth/LanguageSelector.tsx
-- [ ] T007 [P] [US2] Add click-outside handler: useEffect with mousedown listener on document, close dropdown if click target is outside the wrapper ref (same pattern as Header profile dropdown) | src/components/auth/LanguageSelector.tsx
-- [ ] T008 [P] [US2] Add Escape key handler: useEffect with keydown listener, close dropdown on Escape key | src/components/auth/LanguageSelector.tsx
-- [ ] T009 [US1] Update `Header.tsx` import from `import LanguageSelector from` → `import { LanguageSelector } from` | src/components/layout/Header.tsx
-- [ ] T010 [P] [US1] Update login page import from `import LanguageSelector from` → `import { LanguageSelector } from` | src/app/(auth)/login/page.tsx
+- [x] T005 [US1] Create `LanguageDropdown` component: dropdown panel with `role="listbox"`, dark bg (#00070C), border 1px #998C5F, rounded-lg, p-1.5, position absolute right-0 top-full mt-2 z-50. Renders 2 `LanguageOption` buttons from `LOCALES` array. Each option: `role="option"`, `aria-selected`, h-14, px-4, rounded, flex items-center gap-1, flag icon (next/image 24x24) + label text (16px, 700, white, Montserrat, tracking-[0.15px]). Selected: bg rgba(255,234,158,0.20). Unselected: bg transparent, hover bg rgba(255,234,158,0.10). Transition bg 150ms ease-in-out. Accepts `selectedLocale`, `onSelect(code)`, `onClose()` props | src/components/auth/LanguageDropdown.tsx
+- [x] T006 [US2] Refactor `LanguageSelector` to named export. Add `isOpen` state, wrap in relative div. On button click: toggle `isOpen`. Update `aria-expanded` dynamically. When `isOpen`: render `<LanguageDropdown>`. Read current locale from `useLocale()`. Update trigger button flag src + label dynamically based on locale. On option select: call `setLocale(code)` + close. Add open/close animation: dropdown transitions opacity 0→1 + translateY(-4px→0) 150ms ease-out | src/components/auth/LanguageSelector.tsx
+- [x] T007 [P] [US2] Add click-outside handler: useEffect with mousedown listener on document, close dropdown if click target is outside the wrapper ref (same pattern as Header profile dropdown) | src/components/auth/LanguageSelector.tsx
+- [x] T008 [P] [US2] Add Escape key handler: useEffect with keydown listener, close dropdown on Escape key | src/components/auth/LanguageSelector.tsx
+- [x] T009 [US1] Update `Header.tsx` import from `import LanguageSelector from` → `import { LanguageSelector } from` | src/components/layout/Header.tsx
+- [x] T010 [P] [US1] Update login page import from `import LanguageSelector from` → `import { LanguageSelector } from` | src/app/(auth)/login/page.tsx
 
 **Checkpoint**: MVP complete — dropdown opens/closes, language switches, cookie persists, trigger updates. Both Login and Header entry points work.
 
@@ -57,8 +57,8 @@
 
 ### Frontend (US3)
 
-- [ ] T011 [US3] Add `focusedIndex` state to `LanguageSelector`. On dropdown open: set focusedIndex to index of selected locale, focus that option. On Arrow Down/Up: cycle focusedIndex between 0 and 1, move DOM focus to corresponding option button. On Enter while option focused: select that locale, close dropdown. On Escape: close dropdown, return focus to trigger button. Pass `focusedIndex` to `LanguageDropdown` for visual focus indicator | src/components/auth/LanguageSelector.tsx
-- [ ] T012 [US3] Update `LanguageDropdown` to accept `focusedIndex` prop, apply `ref` to each option button for programmatic focus. Add `tabIndex={0}` to options, `tabIndex={-1}` to non-focused options. Ensure `role="option"` buttons receive focus correctly | src/components/auth/LanguageDropdown.tsx
+- [x] T011 [US3] Add `focusedIndex` state to `LanguageSelector`. On dropdown open: set focusedIndex to index of selected locale, focus that option. On Arrow Down/Up: cycle focusedIndex between 0 and 1, move DOM focus to corresponding option button. On Enter while option focused: select that locale, close dropdown. On Escape: close dropdown, return focus to trigger button. Pass `focusedIndex` to `LanguageDropdown` for visual focus indicator | src/components/auth/LanguageSelector.tsx
+- [x] T012 [US3] Update `LanguageDropdown` to accept `focusedIndex` prop, apply `ref` to each option button for programmatic focus. Add `tabIndex={0}` to options, `tabIndex={-1}` to non-focused options. Ensure `role="option"` buttons receive focus correctly | src/components/auth/LanguageDropdown.tsx
 
 **Checkpoint**: Full keyboard navigation works — screen reader users and keyboard-only users can switch language without a mouse.
 
@@ -68,10 +68,10 @@
 
 **Purpose**: Tests, responsive validation, final quality checks
 
-- [ ] T013 [P] Unit test for `useLocale` hook: initializes with default `vi` when no cookie, reads existing cookie, `setLocale` updates context and writes cookie, handles invalid cookie value gracefully | tests/unit/useLocale.test.ts
-- [ ] T014 [P] Unit test for `LanguageDropdown`: renders 2 options with correct flags/labels, highlights selected option, calls onSelect on click, calls onClose on already-selected click | tests/unit/LanguageDropdown.test.tsx
-- [ ] T015 E2E test: open dropdown from login page, switch VN→EN, verify trigger updates, reload page, verify EN persisted from cookie. Also test: click outside closes, Escape closes, keyboard Arrow+Enter works | tests/e2e/language-selector.spec.ts
-- [ ] T016 [P] Responsive verification: check dropdown right-alignment on mobile (375px), tablet (768px), desktop (1440px) — dropdown must not overflow viewport | manual or E2E
+- [x] T013 [P] Unit test for `useLocale` hook: initializes with default `vi` when no cookie, reads existing cookie, `setLocale` updates context and writes cookie, handles invalid cookie value gracefully | tests/unit/useLocale.test.ts
+- [x] T014 [P] Unit test for `LanguageDropdown`: renders 2 options with correct flags/labels, highlights selected option, calls onSelect on click, calls onClose on already-selected click | tests/unit/LanguageDropdown.test.tsx
+- [x] T015 E2E test: open dropdown from login page, switch VN→EN, verify trigger updates, reload page, verify EN persisted from cookie. Also test: click outside closes, Escape closes, keyboard Arrow+Enter works | tests/e2e/language-selector.spec.ts
+- [x] T016 [P] Responsive verification: check dropdown right-alignment on mobile (375px), tablet (768px), desktop (1440px) — dropdown must not overflow viewport | manual or E2E
 
 **Checkpoint**: Feature is tested, accessible, responsive, and production-ready.
 

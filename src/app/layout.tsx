@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Montserrat_Alternates } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { LocaleProvider } from "@/hooks/useLocale";
 
 const montserrat = Montserrat({
 	variable: "--font-montserrat",
@@ -51,7 +52,7 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 			</head>
 			<body className={`${montserrat.variable} ${montserratAlternates.variable} ${digitalFont.variable} antialiased`}>
-				{children}
+				<LocaleProvider>{children}</LocaleProvider>
 			</body>
 		</html>
 	);
