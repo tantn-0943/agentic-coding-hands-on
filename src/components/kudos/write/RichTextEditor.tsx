@@ -21,6 +21,7 @@ export interface RichTextEditorHandle {
 export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorProps>(
   function RichTextEditor({ onChange, error }, ref) {
     const editor = useEditor({
+      immediatelyRender: false,
       extensions: [
         StarterKit.configure({
           bulletList: false,

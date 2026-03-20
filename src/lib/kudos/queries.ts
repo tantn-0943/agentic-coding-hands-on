@@ -32,8 +32,8 @@ export async function getKudosFeed(
     .from('kudos')
     .select(`
       id, content, category_tag, created_at,
-      sender:user_profiles!kudos_sender_id_fkey(id, name, avatar_url, title, star_count, kudos_received_count, department:departments(name)),
-      receiver:user_profiles!kudos_receiver_id_fkey(id, name, avatar_url, title, star_count, kudos_received_count, department:departments(name)),
+      sender:user_profiles!kudos_sender_id_user_profiles_fkey(id, name, avatar_url, title, star_count, kudos_received_count, department:departments(name)),
+      receiver:user_profiles!kudos_receiver_id_user_profiles_fkey(id, name, avatar_url, title, star_count, kudos_received_count, department:departments(name)),
       media:kudos_media(id, media_type, url, sort_order),
       hashtags:kudos_hashtags(hashtag:hashtags(id, name)),
       hearts(id, user_id)

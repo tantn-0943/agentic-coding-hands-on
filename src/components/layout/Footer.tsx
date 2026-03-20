@@ -1,16 +1,21 @@
+'use client'
+
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
-
-const NAV_LINKS = [
-  { label: 'About SAA 2025', href: '/' },
-  { label: 'Awards Information', href: '/award-information' },
-  { label: 'Sun* Kudos', href: '/sun-kudos' },
-]
+import { useTranslations } from '@/hooks/useTranslations'
 
 export function Footer() {
+  const t = useTranslations()
+
+  const NAV_LINKS = [
+    { label: t.nav_about, href: '/' },
+    { label: t.nav_awards, href: '/award-information' },
+    { label: t.nav_kudos, href: '/sun-kudos' },
+  ]
+
   return (
     <footer className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 py-10 px-4 md:px-10 lg:px-[90px] bg-[#00101A] border-t border-[#2E3940]">
-      <Link href="/" aria-label="Go to homepage">
+      <Link href="/" aria-label={t.go_to_homepage}>
         <Logo />
       </Link>
 
@@ -27,7 +32,7 @@ export function Footer() {
       </nav>
 
       <span className="font-[family-name:var(--font-montserrat-alt)] font-bold text-base text-white text-center">
-        Bản quyền thuộc về Sun* © 2025
+        {t.footer_copyright}
       </span>
     </footer>
   )

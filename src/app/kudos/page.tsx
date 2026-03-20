@@ -24,23 +24,21 @@ export default async function KudosPage() {
 
   return (
     <WriteKudoWrapper>
-      {({ onOpenWriteKudo }) => (
-        <div className="min-h-screen bg-[var(--color-bg-page)]">
-          <HeroBanner onOpenWriteKudo={onOpenWriteKudo} />
+      <div className="min-h-screen bg-[var(--color-bg-page)]">
+        <HeroBanner />
 
-          <Suspense fallback={<Skeleton variant="card" className="mx-4 mt-10 h-96 lg:mx-36" />}>
-            <KudosPageContent
-              initialKudos={feedResult.data}
-              initialCursor={feedResult.nextCursor}
-              highlights={highlights}
-              stats={stats}
-              leaderboard={leaderboard}
-            />
-          </Suspense>
+        <Suspense fallback={<Skeleton variant="card" className="mx-4 mt-10 h-96 lg:mx-36" />}>
+          <KudosPageContent
+            initialKudos={feedResult.data}
+            initialCursor={feedResult.nextCursor}
+            highlights={highlights}
+            stats={stats}
+            leaderboard={leaderboard}
+          />
+        </Suspense>
 
-          <div className="h-20" />
-        </div>
-      )}
+        <div className="h-20" />
+      </div>
     </WriteKudoWrapper>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { useWriteKudo } from '@/hooks/useWriteKudo'
 import { useToast } from '@/hooks/useToast'
 import { WriteKudoModal } from './WriteKudoModal'
@@ -13,8 +13,15 @@ import { ImageSection } from './ImageSection'
 import { AnonymousToggle } from './AnonymousToggle'
 import { Toast } from '@/components/ui/Toast'
 
+// Context to provide onOpenWriteKudo to any descendant
+const WriteKudoContext = createContext<(() => void) | null>(null)
+
+export function useOpenWriteKudo(): (() => void) | null {
+  return useContext(WriteKudoContext)
+}
+
 interface WriteKudoWrapperProps {
-  children: (props: { onOpenWriteKudo: () => void }) => React.ReactNode
+  children: React.ReactNode
 }
 
 export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
@@ -30,8 +37,8 @@ export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
   const form = useWriteKudo({ onClose: () => setIsModalOpen(false), showToast: toast.showToast })
 
   return (
-    <>
-      {children({ onOpenWriteKudo: handleOpen })}
+    <WriteKudoContext.Provider value={handleOpen}>
+      {children}
 
       <WriteKudoModal isOpen={isModalOpen} onClose={handleClose}>
         <WriteKudoForm
@@ -89,6 +96,6 @@ export function WriteKudoWrapper({ children }: WriteKudoWrapperProps) {
       </WriteKudoModal>
 
       <Toast message={toast.message} visible={toast.visible} onDismiss={toast.hideToast} />
-    </>
+    </WriteKudoContext.Provider>
   )
 }

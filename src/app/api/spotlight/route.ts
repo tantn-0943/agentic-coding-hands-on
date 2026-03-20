@@ -8,7 +8,7 @@ export async function GET() {
     // Aggregate kudos by receiver to create spotlight nodes
     const { data, error } = await supabase
       .from('kudos')
-      .select('receiver_id, receiver:user_profiles!kudos_receiver_id_fkey(id, name)')
+      .select('receiver_id, receiver:user_profiles!kudos_receiver_id_user_profiles_fkey(id, name)')
 
     if (error) throw new Error(`Failed to fetch spotlight data: ${error.message}`)
 

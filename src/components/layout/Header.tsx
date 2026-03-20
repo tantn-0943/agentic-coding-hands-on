@@ -5,18 +5,24 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import Logo from '@/components/ui/Logo'
 import { LanguageSelector } from '@/components/auth/LanguageSelector'
+import { useTranslations } from '@/hooks/useTranslations'
 import type { NotificationsResponse } from '@/types/notifications'
+import type { Messages } from '@/lib/i18n/messages'
 import { createClient } from '@/libs/supabase/client'
 
-const NAV_LINKS = [
-  { label: 'About SAA 2025', href: '/' },
-  { label: 'Awards Information', href: '/award-information' },
-  { label: 'Sun* Kudos', href: '/kudos' },
-]
+function getNavLinks(t: Messages) {
+  return [
+    { label: t.nav_about, href: '/' },
+    { label: t.nav_awards, href: '/award-information' },
+    { label: t.nav_kudos, href: '/kudos' },
+  ]
+}
 
 export function Header() {
   const pathname = usePathname()
   const router = useRouter()
+  const t = useTranslations()
+  const NAV_LINKS = getNavLinks(t)
   const [unreadCount, setUnreadCount] = useState(0)
   const [avatarInitial, setAvatarInitial] = useState('U')
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -59,7 +65,7 @@ export function Header() {
       className="sticky top-0 z-50 flex flex-row items-center justify-between h-20 px-4 md:px-10 lg:px-36 py-3 w-full"
       style={{ background: 'var(--color-header-bg)' }}
     >
-      <Link href="/" aria-label="Go to homepage">
+      <Link href="/" aria-label={t.go_to_homepage}>
         <Logo />
       </Link>
 

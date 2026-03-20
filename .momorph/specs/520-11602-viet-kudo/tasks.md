@@ -206,6 +206,47 @@
 
 ---
 
+## Phase 11: Bug Fix — Leaderboard fetch fails (missing FK secret_boxes → user_profiles)
+
+**Purpose**: Fix `Could not find a relationship between 'secret_boxes' and 'user_profiles' in the schema cache` error in `getLeaderboard()`. Root cause: `secret_boxes.user_id` references `auth.users(id)`, not `user_profiles(id)`. PostgREST cannot infer the join path.
+
+- [x] T046 Create migration to add FK from `secret_boxes.user_id` to `user_profiles(id)` — this enables the Supabase `.select('user:user_profiles(...)')` join in the leaderboard query | supabase/migrations/20260320000000_add_secret_boxes_user_profiles_fk.sql
+- [x] T047 Verify `getLeaderboard()` query works after migration — no code change needed in queries.ts since the query is already correct once the FK exists | src/lib/kudos/queries.ts
+
+**Checkpoint**: Leaderboard loads without error on the Live Board page.
+
+---
+
+## Phase 12: Bug Fix — Kudos feed fetch fails (missing FK kudos → user_profiles)
+
+**Purpose**: Fix `Could not find a relationship between 'kudos' and 'user_profiles' in the schema cache`. Root cause: `kudos.sender_id` and `kudos.receiver_id` reference `auth.users(id)`, not `user_profiles(id)`. The query uses `!kudos_sender_id_fkey` and `!kudos_receiver_id_fkey` to disambiguate, but those FK names point to `auth.users` — PostgREST can't resolve the path to `user_profiles`.
+
+- [x] T048 Create migration to add FKs from `kudos.sender_id` and `kudos.receiver_id` to `user_profiles(id)` with the exact constraint names used in the query (`kudos_sender_id_fkey`, `kudos_receiver_id_fkey`). Drop the old auto-named FKs to `auth.users` first, then re-add them with explicit names, plus add the new FKs to `user_profiles` | supabase/migrations/20260320000001_add_kudos_user_profiles_fk.sql
+
+**Checkpoint**: Kudos feed loads without error on the Live Board page.
+
+---
+
+## Phase 13: Bug Fix — "Functions are not valid as a child of Client Components"
+
+**Purpose**: Fix render-props pattern in `WriteKudoWrapper` that passes a function as `children` across the Server→Client boundary. Replace with Context-based approach.
+
+- [x] T049 Refactor `WriteKudoWrapper` from render-props to normal children + Context: create `WriteKudoContext` providing `onOpenWriteKudo`, change children type to `React.ReactNode`. Update `HeroBanner` to read from context via `useWriteKudo()` instead of receiving `onOpenWriteKudo` as a prop. Update `KudosPage` to pass normal JSX children. | src/components/kudos/write/WriteKudoWrapper.tsx, src/components/kudos/HeroBanner.tsx, src/app/kudos/page.tsx
+
+**Checkpoint**: Kudos page renders without "Functions are not valid as a child" error.
+
+---
+
+## Phase 14: Bug Fix — Tiptap SSR hydration mismatch
+
+**Purpose**: Fix `SSR has been detected, please set immediatelyRender explicitly to false`. Tiptap's `useEditor` defaults to rendering immediately, which causes hydration mismatch in Next.js SSR.
+
+- [x] T050 Add `immediatelyRender: false` to `useEditor()` config in `RichTextEditor.tsx` — tells Tiptap to defer editor rendering to the client, avoiding SSR mismatch | src/components/kudos/write/RichTextEditor.tsx
+
+**Checkpoint**: Rich text editor renders without Tiptap SSR error.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

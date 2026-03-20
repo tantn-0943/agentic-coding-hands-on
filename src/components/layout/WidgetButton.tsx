@@ -2,12 +2,10 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { useOpenWriteKudo } from '@/components/kudos/write/WriteKudoWrapper'
 
-interface WidgetButtonProps {
-  onOpenWriteKudo?: () => void
-}
-
-export function WidgetButton({ onOpenWriteKudo }: WidgetButtonProps) {
+export function WidgetButton() {
+  const onOpenWriteKudo = useOpenWriteKudo()
   const [isOpen, setIsOpen] = useState(false)
 
   const handleWriteKudo = () => {

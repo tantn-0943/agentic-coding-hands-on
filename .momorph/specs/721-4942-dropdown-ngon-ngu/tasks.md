@@ -77,6 +77,30 @@
 
 ---
 
+## Phase 5: Bug Fix — Đa ngôn ngữ chưa hoạt động (i18n not functional)
+
+**Purpose**: The locale dropdown switches the context value and cookie, but no text actually changes — all UI strings are hardcoded. Add a minimal translation system so switching VN↔EN visibly changes the UI.
+
+- [x] T017 Create translation dictionaries (`vi.ts` and `en.ts`) with key-value pairs for Login page, Header nav links, and Footer text. Create a `useTranslations()` hook that reads locale from `useLocale()` and returns the matching dictionary | src/lib/i18n/messages.ts, src/hooks/useTranslations.ts
+- [x] T018 Update Login page to use `useTranslations()` for hero text, footer, and button labels — requires extracting the login page content into a Client Component wrapper since the page is a Server Component | src/app/(auth)/login/page.tsx, src/components/auth/LoginContent.tsx
+- [x] T019 [P] Update Header nav links to use `useTranslations()` for link labels | src/components/layout/Header.tsx
+- [x] T020 [P] Update Footer text to use `useTranslations()` | src/components/layout/Footer.tsx
+- [x] T021 Update unit tests for `useTranslations` hook and verify language switch changes visible text | tests/unit/useTranslations.test.tsx
+
+**Checkpoint**: Switching VN↔EN visibly changes Login text, Header nav labels, and Footer copyright.
+
+---
+
+## Phase 6: Bug Fix — Hydration mismatch (SSR renders default locale, client reads cookie)
+
+**Purpose**: Fix `Hydration failed because the server rendered text didn't match the client` error. Root cause: `useState(readLocaleCookie)` reads `document.cookie` on client but returns `DEFAULT_LOCALE` on server — if cookie is `en`, the initial render differs between server and client.
+
+- [x] T022 Fix `LocaleProvider` in `useLocale.tsx`: initialize `useState` with `DEFAULT_LOCALE` always (matching SSR), then sync from cookie in `useEffect` after hydration. This ensures server and client render the same value on first render, then client updates to cookie value after mount. | src/hooks/useLocale.tsx
+
+**Checkpoint**: No hydration errors when `NEXT_LOCALE=en` cookie exists.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

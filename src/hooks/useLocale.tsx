@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME } from '@/types/locale'
 import type { LocaleCode } from '@/types/locale'
 
@@ -24,7 +24,17 @@ function writeLocaleCookie(code: LocaleCode) {
 }
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<LocaleCode>(readLocaleCookie)
+  // Initialize with DEFAULT_LOCALE to match SSR output (avoids hydration mismatch).
+  // Cookie value is synced in useEffect after hydration.
+  const [locale, setLocaleState] = useState<LocaleCode>(DEFAULT_LOCALE)
+
+  // Sync locale from cookie after mount (client-only)
+  useEffect(() => {
+    const cookieLocale = readLocaleCookie()
+    if (cookieLocale !== DEFAULT_LOCALE) {
+      setLocaleState(cookieLocale)
+    }
+  }, [])
 
   const setLocale = useCallback((code: LocaleCode) => {
     setLocaleState(code)
