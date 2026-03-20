@@ -233,6 +233,16 @@
 
 ---
 
+## Phase 11: Sample Data — Full flow seed
+
+**Purpose**: Create comprehensive seed data covering all tables and flows for local development
+
+- [x] T095 Create complete `supabase/seed.sql` with: 10 auth.users + auth.identities, 10 user_profiles, 3 departments, 8 hashtags, app_config, 20 kudos (including 2 anonymous), 29 kudos_hashtag links, 23 hearts, 9 secret boxes (5 opened, 4 unopened). Run via `supabase db reset` | supabase/seed.sql
+
+**Checkpoint**: `supabase db reset` creates a fully populated database for testing all flows.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
