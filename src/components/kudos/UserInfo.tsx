@@ -6,13 +6,15 @@ interface UserInfoProps {
   departmentName?: string
   kudosReceivedCount: number
   className?: string
+  align?: 'left' | 'center'
 }
 
-export function UserInfo({ name, departmentName, kudosReceivedCount, className = '' }: UserInfoProps) {
+export function UserInfo({ name, departmentName, kudosReceivedCount, className = '', align = 'left' }: UserInfoProps) {
   const starCount = computeStars(kudosReceivedCount)
+  const alignClass = align === 'center' ? 'items-center text-center' : ''
 
   return (
-    <div className={`flex flex-col gap-0.5 ${className}`}>
+    <div className={`flex flex-col gap-0.5 ${alignClass} ${className}`}>
       <div className="flex items-center gap-1">
         <span
           className="cursor-pointer text-sm font-medium text-[var(--color-primary-gold)]"
