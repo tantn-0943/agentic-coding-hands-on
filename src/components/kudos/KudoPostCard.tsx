@@ -27,12 +27,11 @@ export function KudoPostCard({ kudo, onHashtagClick }: KudoPostCardProps) {
 
         {kudo.category_tag && <CategoryTagBadge tag={kudo.category_tag} />}
 
-        <p
-          className="line-clamp-5 text-base text-white"
+        <div
+          className="prose-kudos line-clamp-5 text-base text-white"
           style={{ fontFamily: 'var(--font-gotham)' }}
-        >
-          {kudo.content}
-        </p>
+          dangerouslySetInnerHTML={{ __html: kudo.content }}
+        />
 
         <ImageGallery media={kudo.media} />
 

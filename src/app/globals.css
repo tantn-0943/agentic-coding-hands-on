@@ -142,3 +142,8 @@ body {
 	color: var(--foreground);
 	font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
 }
+
+/* Kudos card content: strip default spacing from Tiptap HTML */
+.prose-kudos p { margin: 0; }
+.prose-kudos strong { font-weight: 700; }
+.prose-kudos em { font-style: italic; }

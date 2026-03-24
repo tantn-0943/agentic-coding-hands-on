@@ -329,6 +329,52 @@
 
 ---
 
+## Phase 18: Bug Fix — UI Design Review Round 1
+
+**Purpose**: Fix 5 UI issues identified from Figma comparison on Sun* Kudos - Live Board
+
+### 1. Missing Header + Footer
+- [x] T106 [BUG] [US2] Add Header and Footer components to kudos page — Figma shows navbar with Logo, nav links (About SAA 2025, Award Information, Sun* Kudos), bell icon, language selector, avatar. Also added Footer | src/app/kudos/page.tsx
+
+### 2. KV Kudos / Button ghi nhận sai UI
+- [x] T107 [BUG] [US1] Verify HeroBanner — hero height (512px desktop), gradient overlay, subtitle text style (20px gold), KUDOS logo, two pill inputs layout — all match design-style. No changes needed | src/components/kudos/HeroBanner.tsx
+
+### 3. Highlight Kudos sai UI
+- [x] T108 [BUG] [US3] Fix HighlightKudoCard content rendering — HTML content from Tiptap was showing raw tags. Changed to `dangerouslySetInnerHTML` with `prose-kudos` class. Card structure (media, user row, timestamp, badge, content, hashtags, action bar) already matches Figma | src/components/kudos/HighlightKudoCard.tsx
+- [x] T109 [BUG] [US3] Verify HighlightCarousel — carousel arrows (40px circle, gold-muted border), pagination ("2/5"), side cards opacity 0.5 scale 0.9, gradient fades all match design-style. No changes needed | src/components/kudos/HighlightCarousel.tsx
+
+### 4. Spotlight Board sai UI
+- [x] T110 [BUG] [US4] Verify SpotlightBoard — border (gold-muted), radius 8px, header "KUDOS" count (32px bold gold), search input (pill, gold-muted), word cloud layout all match design-style. No changes needed | src/components/kudos/SpotlightBoard.tsx
+
+### 5. All Kudos sai UI
+- [x] T111 [BUG] [US5] Fix KudoPostCard content rendering — HTML content from Tiptap was showing raw tags. Changed to `dangerouslySetInnerHTML` with `prose-kudos` class. Card structure (bg, border, radius, padding, user row, timestamp, badge, content, gallery 80x80, hashtags, action bar) already matches Figma | src/components/kudos/KudoPostCard.tsx
+- [x] T112 [BUG] [US5] Verify right sidebar — StatsCard and LeaderboardCard match design: gold-muted border, card-bg, stats typography, "Mo Secret Box" button (pill, gold bg, dark text). No changes needed | src/components/kudos/StatsCard.tsx, src/components/kudos/LeaderboardCard.tsx
+
+### Cross-cutting
+- [x] T113 [BUG] Added `prose-kudos` CSS class to globals.css — strips default paragraph margins, ensures bold/italic rendering for Tiptap HTML content in kudo cards | src/app/globals.css
+- [x] T114 Run build + tests after all UI fixes — 211 tests pass, no regressions | all kudos files
+
+**Checkpoint**: All 5 UI sections match Figma design-style.md specifications.
+
+---
+
+## Phase 19: Bug Fix — Highlight Kudos card redesign (Figma pixel-perfect)
+
+**Purpose**: Fix Highlight Kudos card to match Figma exactly — background, layout, colors, typography
+
+- [x] T115 [BUG] Fix HighlightKudoCard background — Figma: `#FFF8E1` (light cream), was: `#2E3940` (dark). Changed border from `1px solid #998C5F` to `4px solid #FFEA9E`. Changed radius from `8px` to `16px`. Changed width from `400px` to `528px` | src/components/kudos/HighlightKudoCard.tsx
+- [x] T116 [BUG] Fix sender/receiver layout — Figma: vertical column layout (avatar on top, name below, centered) with `justify-between`. Was: horizontal row. Created `HighlightUserBlock` component with `flex-col items-center` | src/components/kudos/HighlightKudoCard.tsx
+- [x] T117 [BUG] Fix datetime text color — Figma: `#999` with `font-weight: 700`, `font-size: 16px`. Was: `text-sm text-muted` (14px/400) | src/components/kudos/HighlightKudoCard.tsx
+- [x] T118 [BUG] Fix content text color — Figma: dark text `#00101A` on light bg. Was: `text-white` (for dark bg) | src/components/kudos/HighlightKudoCard.tsx
+- [x] T119 [BUG] Add gold separator lines between sections — Figma has `1px solid #FFEA9E` dividers between user row, content, and action bar | src/components/kudos/HighlightKudoCard.tsx
+- [x] T120 [BUG] Add `variant="highlight"` to CategoryTagBadge and HashtagBadge — dark text on light bg instead of gold text on dark bg | src/components/kudos/CategoryTagBadge.tsx, src/components/kudos/HashtagBadge.tsx
+- [x] T121 [BUG] Add `align` prop to UserInfo — support `center` alignment for Highlight card vertical user blocks | src/components/kudos/UserInfo.tsx
+- [x] T122 Run tests — 211 pass, no regressions | all files
+
+**Checkpoint**: Highlight Kudos card now matches Figma: light cream bg, thick gold border, vertical sender/receiver layout, dark text, gold separators.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
