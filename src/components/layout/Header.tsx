@@ -62,7 +62,7 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 flex flex-row items-center justify-between h-20 px-4 md:px-10 lg:px-36 py-3 w-full"
+      className="sticky top-0 z-50 flex flex-row items-center justify-between h-20 px-4 md:px-10 lg:px-[144px] py-3 w-full backdrop-blur-[10px]"
       style={{ background: 'var(--color-header-bg)' }}
     >
       <Link href="/" aria-label={t.go_to_homepage}>
@@ -77,10 +77,10 @@ export function Header() {
               key={href}
               href={href}
               aria-current={isActive ? 'page' : undefined}
-              className={`px-2 py-1 rounded text-sm font-bold font-[family-name:var(--font-montserrat)] transition-colors duration-150 ${
+              className={`px-6 py-4 text-base font-medium font-[family-name:var(--font-montserrat)] transition-colors duration-200 ${
                 isActive
-                  ? 'text-[#FFEA9E] bg-[#FFEA9E]/10'
-                  : 'text-white hover:bg-[#FFEA9E]/10'
+                  ? 'text-[#FFEA9E] border-b border-[#FFEA9E]'
+                  : 'text-white hover:text-[#FFEA9E]/90'
               }`}
             >
               {label}

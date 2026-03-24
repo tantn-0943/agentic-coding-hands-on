@@ -1,6 +1,8 @@
 import { Suspense } from 'react'
 import { getKudosFeed, getKudosHighlights, getUserStats, getLeaderboard } from '@/lib/kudos/queries'
 import { createClient } from '@/libs/supabase/server'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 import { HeroBanner } from '@/components/kudos/HeroBanner'
 import { KudosPageContent } from '@/components/kudos/KudosPageContent'
 import { Skeleton } from '@/components/ui/Skeleton'
@@ -25,6 +27,7 @@ export default async function KudosPage() {
   return (
     <WriteKudoWrapper>
       <div className="min-h-screen bg-[var(--color-bg-page)]">
+        <Header />
         <HeroBanner />
 
         <Suspense fallback={<Skeleton variant="card" className="mx-4 mt-10 h-96 lg:mx-36" />}>
@@ -37,7 +40,7 @@ export default async function KudosPage() {
           />
         </Suspense>
 
-        <div className="h-20" />
+        <Footer />
       </div>
     </WriteKudoWrapper>
   )
