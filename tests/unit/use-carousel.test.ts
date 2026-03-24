@@ -23,32 +23,32 @@ describe('useCarousel', () => {
     expect(result.current.currentPage).toBe(1)
   })
 
-  it('disables back at page 0', () => {
+  it('wraps from first to last on prev (infinite)', () => {
     const { result } = renderHook(() => useCarousel({ totalItems: 5 }))
-    expect(result.current.canGoBack).toBe(false)
-    act(() => result.current.goPrev()) // should do nothing
-    expect(result.current.currentPage).toBe(0)
+    expect(result.current.canGoBack).toBe(true)
+    act(() => result.current.goPrev())
+    expect(result.current.currentPage).toBe(4) // wraps to last
   })
 
-  it('disables forward at last page', () => {
+  it('wraps from last to first on next (infinite)', () => {
     const { result } = renderHook(() => useCarousel({ totalItems: 3 }))
     act(() => result.current.goNext())
     act(() => result.current.goNext())
-    expect(result.current.canGoForward).toBe(false)
-    act(() => result.current.goNext()) // should do nothing
-    expect(result.current.currentPage).toBe(2)
+    expect(result.current.canGoForward).toBe(true)
+    act(() => result.current.goNext())
+    expect(result.current.currentPage).toBe(0) // wraps to first
   })
 
   it('handles single item', () => {
     const { result } = renderHook(() => useCarousel({ totalItems: 1 }))
-    expect(result.current.canGoBack).toBe(false)
-    expect(result.current.canGoForward).toBe(false)
+    expect(result.current.canGoBack).toBe(true)
+    expect(result.current.canGoForward).toBe(true)
+    act(() => result.current.goNext())
+    expect(result.current.currentPage).toBe(0) // stays at 0 (wraps)
   })
 
   it('handles zero items', () => {
     const { result } = renderHook(() => useCarousel({ totalItems: 0 }))
     expect(result.current.currentPage).toBe(0)
-    expect(result.current.canGoBack).toBe(false)
-    expect(result.current.canGoForward).toBe(false)
   })
 })
