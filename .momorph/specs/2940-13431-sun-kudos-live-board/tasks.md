@@ -306,6 +306,29 @@
 
 ---
 
+## Phase 16: Bug Fix — Kudos submit FK violation (missing user_profiles)
+
+**Purpose**: Fix "kudos_sender_id_user_profiles_fkey" FK violation when submitting kudos
+
+- [x] T103 [BUG] Create `handle_new_user()` trigger — auto-creates `user_profiles` row when a new user signs up via `auth.users`. Extracts `full_name` and `avatar_url` from Google OAuth metadata | supabase/migrations/20260324000000_auto_create_user_profile.sql
+- [x] T104 [BUG] Fix seed `user_profiles` INSERT to use `ON CONFLICT (id) DO UPDATE` — prevents duplicate key error since the trigger now auto-creates profiles when auth.users are seeded | supabase/seed.sql, supabase/seeds/common/seed.sql
+
+**Root cause**: When a real user signs in via Google OAuth, `auth.users` is created automatically but `user_profiles` was not. The FK constraint `kudos_sender_id_user_profiles_fkey` (added for PostgREST join resolution) then blocks kudos creation.
+
+**Checkpoint**: New OAuth users can submit kudos immediately after first login.
+
+---
+
+## Phase 17: Bug Fix — Google avatar next/image unconfigured host
+
+**Purpose**: Allow Google OAuth avatar URLs in next/image
+
+- [x] T105 [BUG] Add `lh3.googleusercontent.com` to `images.remotePatterns` in next.config.ts. Also added Supabase storage patterns for production and local dev | next.config.ts
+
+**Checkpoint**: Google OAuth avatars render without errors.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

@@ -79,7 +79,16 @@ INSERT INTO user_profiles (id, name, avatar_url, department_id, title, star_coun
   ('b1000000-0000-0000-0000-000000000007', 'Vo Thanh Tam',          NULL, 'd1000000-0000-0000-0000-000000000003', 'QA',         1, 15, 25, 20),
   ('b1000000-0000-0000-0000-000000000008', 'Do Minh Chau',          NULL, 'd1000000-0000-0000-0000-000000000001', 'DEVELOPER',  2, 30, 18, 60),
   ('b1000000-0000-0000-0000-000000000009', 'Bui Quang Huy',         NULL, 'd1000000-0000-0000-0000-000000000002', 'DESIGNER',   0,  8,  5, 12),
-  ('b1000000-0000-0000-0000-000000000010', 'Nguyen Ba Chuc',        NULL, 'd1000000-0000-0000-0000-000000000003', 'PM',         1, 10, 22, 15);
+  ('b1000000-0000-0000-0000-000000000010', 'Nguyen Ba Chuc',        NULL, 'd1000000-0000-0000-0000-000000000003', 'PM',         1, 10, 22, 15)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  avatar_url = EXCLUDED.avatar_url,
+  department_id = EXCLUDED.department_id,
+  title = EXCLUDED.title,
+  star_count = EXCLUDED.star_count,
+  kudos_received_count = EXCLUDED.kudos_received_count,
+  kudos_sent_count = EXCLUDED.kudos_sent_count,
+  hearts_received_count = EXCLUDED.hearts_received_count;
 
 -- ================================================
 -- 4. Kudos (20 entries — varied senders, receivers, content)
