@@ -63,7 +63,7 @@ export function HighlightCarousel({ highlights, onHashtagClick }: HighlightCarou
           <div
             className="flex gap-6 transition-transform duration-300 ease-out"
             style={{
-              transform: `translateX(calc(-${currentPage * (400 + 24)}px + calc(50% - 200px)))`,
+              transform: `translateX(calc(-${currentPage * (528 + 24)}px + calc(50% - 264px)))`,
             }}
           >
             {highlights.map((kudo, index) => (

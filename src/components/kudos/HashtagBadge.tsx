@@ -7,16 +7,21 @@ interface HashtagBadgeProps {
 }
 
 export function HashtagBadge({ name, onClick, variant = 'default' }: HashtagBadgeProps) {
-  const colorClass = variant === 'highlight'
-    ? 'bg-[#FFEA9E]/20 text-[#00101A] hover:bg-[#FFEA9E]/40'
-    : 'bg-[var(--color-secondary-btn)] text-[var(--color-primary-gold)] hover:bg-[var(--color-secondary-btn-hover)]'
+  const isHighlight = variant === 'highlight'
 
   return (
     <button
       type="button"
       onClick={() => onClick?.(name)}
-      className={`cursor-pointer rounded px-2 py-1 text-sm font-medium transition-colors ${colorClass}`}
-      style={{ fontFamily: 'var(--font-gotham)' }}
+      className={`cursor-pointer rounded px-2 py-1 transition-colors ${
+        isHighlight
+          ? 'bg-transparent text-base font-bold'
+          : 'bg-[var(--color-secondary-btn)] text-sm font-medium text-[var(--color-primary-gold)] hover:bg-[var(--color-secondary-btn-hover)]'
+      }`}
+      style={{
+        fontFamily: 'var(--font-gotham)',
+        ...(isHighlight ? { color: '#D4271D', fontWeight: 700 } : {}),
+      }}
     >
       #{name}
     </button>

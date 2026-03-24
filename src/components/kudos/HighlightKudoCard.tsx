@@ -1,7 +1,6 @@
 import { Avatar } from '@/components/ui/Avatar'
 import { Icon } from '@/components/ui/Icon'
 import { UserInfo } from './UserInfo'
-import { CategoryTagBadge } from './CategoryTagBadge'
 import { HashtagBadge } from './HashtagBadge'
 import { HeartButton } from './HeartButton'
 import { CopyLinkButton } from './CopyLinkButton'
@@ -24,6 +23,7 @@ function HighlightUserBlock({ user }: { user: KudoWithDetails['sender'] }) {
         departmentName={user.department_name}
         kudosReceivedCount={user.kudos_received_count}
         align="center"
+        variant="highlight"
       />
     </div>
   )
@@ -43,7 +43,7 @@ export function HighlightKudoCard({ kudo, isActive, onHashtagClick }: HighlightK
         <div className="flex-1">
           <HighlightUserBlock user={kudo.sender} />
         </div>
-        <div className="flex h-full items-center pt-6">
+        <div className="flex items-center pt-6">
           <Icon name="arrow-sent" size={24} className="shrink-0 text-[#999]" />
         </div>
         <div className="flex-1">
@@ -55,47 +55,57 @@ export function HighlightKudoCard({ kudo, isActive, onHashtagClick }: HighlightK
       <div className="mx-6 mt-4 h-px bg-[var(--color-primary-gold)]" />
 
       {/* Content section */}
-      <div className="flex flex-col items-end gap-4 px-6 py-4">
-        <div className="flex w-full flex-col gap-3">
+      <div className="flex flex-col gap-4 px-6 py-6">
+        {/* Datetime — normal weight per user feedback */}
+        <span
+          className="text-base font-normal text-[#999]"
+          style={{ fontFamily: 'var(--font-gotham)' }}
+        >
+          {formatTimestamp(kudo.created_at)}
+        </span>
+
+        {/* Category tag — bold, centered, uppercase */}
+        {kudo.category_tag && (
           <span
-            className="text-base font-bold text-[#999]"
+            className="text-center text-base font-bold uppercase text-[#00101A]"
             style={{ fontFamily: 'var(--font-gotham)' }}
           >
-            {formatTimestamp(kudo.created_at)}
+            {kudo.category_tag}
           </span>
+        )}
 
-          {kudo.category_tag && <CategoryTagBadge tag={kudo.category_tag} variant="highlight" />}
+        {/* Content — normal weight, with padding per user feedback */}
+        <div
+          className="prose-kudos line-clamp-3 px-2 text-base font-normal text-[#00101A]"
+          style={{ fontFamily: 'var(--font-gotham)' }}
+          dangerouslySetInnerHTML={{ __html: kudo.content }}
+        />
 
-          <div
-            className="prose-kudos line-clamp-3 text-base text-[#00101A]"
-            style={{ fontFamily: 'var(--font-gotham)' }}
-            dangerouslySetInnerHTML={{ __html: kudo.content }}
-          />
-
-          {kudo.hashtags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {kudo.hashtags.slice(0, 5).map((h) => (
-                <HashtagBadge key={h.id} name={h.name} onClick={onHashtagClick} variant="highlight" />
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Hashtags — red #D4271D, bold */}
+        {kudo.hashtags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {kudo.hashtags.slice(0, 5).map((h) => (
+              <HashtagBadge key={h.id} name={h.name} onClick={onHashtagClick} variant="highlight" />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Separator */}
       <div className="mx-6 h-px bg-[var(--color-primary-gold)]" />
 
-      {/* Action Bar */}
+      {/* Action Bar — Figma: 16px/700/#00101A for text, 24px/700 for heart count */}
       <div className="flex items-center justify-between px-6 py-4">
         <HeartButton
           kudosId={kudo.id}
           initialHearted={kudo.has_hearted}
           initialCount={kudo.heart_count}
           isOwnKudos={kudo.is_own_kudos}
+          variant="highlight"
         />
         <div className="flex items-center gap-6">
-          <CopyLinkButton kudosId={kudo.id} />
-          <ViewDetailLink href={`/kudos/${kudo.id}`} />
+          <CopyLinkButton kudosId={kudo.id} variant="highlight" />
+          <ViewDetailLink href={`/kudos/${kudo.id}`} variant="highlight" />
         </div>
       </div>
     </article>

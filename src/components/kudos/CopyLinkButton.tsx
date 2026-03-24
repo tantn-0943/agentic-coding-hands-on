@@ -7,9 +7,10 @@ import { Toast } from '@/components/ui/Toast'
 
 interface CopyLinkButtonProps {
   kudosId: string
+  variant?: 'default' | 'highlight'
 }
 
-export function CopyLinkButton({ kudosId }: CopyLinkButtonProps) {
+export function CopyLinkButton({ kudosId, variant = 'default' }: CopyLinkButtonProps) {
   const { copy } = useCopyToClipboard()
   const { message, visible, showToast, hideToast } = useToast()
 
@@ -26,7 +27,11 @@ export function CopyLinkButton({ kudosId }: CopyLinkButtonProps) {
       <button
         type="button"
         onClick={handleCopy}
-        className="flex cursor-pointer items-center gap-1 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary-gold)]"
+        className={`flex cursor-pointer items-center gap-1 transition-colors ${
+          variant === 'highlight'
+            ? 'text-base font-bold text-[#00101A] hover:text-[#00101A]/80'
+            : 'text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary-gold)]'
+        }`}
         style={{ fontFamily: 'var(--font-gotham)' }}
       >
         Copy Link

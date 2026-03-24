@@ -4,13 +4,13 @@ interface CategoryTagBadgeProps {
 }
 
 export function CategoryTagBadge({ tag, variant = 'default' }: CategoryTagBadgeProps) {
-  const colorClass = variant === 'highlight'
-    ? 'border-[#00101A]/30 text-[#00101A]'
-    : 'border-[var(--color-primary-gold)] text-[var(--color-primary-gold)]'
+  const styleClass = variant === 'highlight'
+    ? 'border-transparent text-[#00101A] font-bold'
+    : 'border-[0.5px] border-[var(--color-primary-gold)] text-[var(--color-primary-gold)]'
 
   return (
     <span
-      className={`inline-block rounded border-[0.5px] bg-transparent px-2.5 py-1 text-sm font-bold uppercase ${colorClass}`}
+      className={`inline-block rounded bg-transparent px-2.5 py-1 text-sm uppercase ${styleClass}`}
       style={{ fontFamily: 'var(--font-gotham)' }}
     >
       {tag}

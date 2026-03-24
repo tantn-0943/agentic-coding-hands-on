@@ -8,15 +8,22 @@ interface HeartButtonProps {
   initialHearted: boolean
   initialCount: number
   isOwnKudos: boolean
+  variant?: 'default' | 'highlight'
 }
 
-export function HeartButton({ kudosId, initialHearted, initialCount, isOwnKudos }: HeartButtonProps) {
+export function HeartButton({ kudosId, initialHearted, initialCount, isOwnKudos, variant = 'default' }: HeartButtonProps) {
   const { hearted, count, toggle, disabled } = useHeartToggle({
     kudosId,
     initialHearted,
     initialCount,
     isOwnKudos,
   })
+
+  // Figma highlight: count=24px/700/#00101A
+  // Figma default: count=16px/500/white
+  const countClass = variant === 'highlight'
+    ? 'text-2xl font-bold text-[#00101A]'
+    : 'text-base font-medium text-white'
 
   return (
     <button
@@ -34,7 +41,7 @@ export function HeartButton({ kudosId, initialHearted, initialCount, isOwnKudos 
         className={hearted ? 'text-[var(--color-heart-red)]' : 'text-[var(--color-text-muted)]'}
       />
       <span
-        className="text-base font-medium text-white"
+        className={countClass}
         style={{ fontFamily: 'var(--font-gotham)' }}
         aria-live="polite"
       >

@@ -375,6 +375,23 @@
 
 ---
 
+## Phase 20: Bug Fix — Highlight Kudos card polish (Round 2)
+
+**Purpose**: Fix remaining Highlight card visual issues from user feedback
+
+- [x] T123 [BUG] Fix name text color — UserInfo on light bg should use dark `#00101A` not gold. Added `variant="highlight"` prop | src/components/kudos/UserInfo.tsx
+- [x] T124 [BUG] Fix carousel translateX — card width changed to 528px, update offset calc from `400+24` to `528+24` so 1 card shows centered per slide | src/components/kudos/HighlightCarousel.tsx
+- [x] T125 [BUG] Fix CategoryTagBadge highlight — remove border (was `border-[#00101A]/30`), keep transparent bg + bold dark text only | src/components/kudos/CategoryTagBadge.tsx
+- [x] T126 [BUG] Fix HashtagBadge highlight — remove background, use transparent bg + dark text only | src/components/kudos/HashtagBadge.tsx
+- [x] T127 [BUG] Fix HeartButton highlight — count text color from white to `#00101A`. Added `variant` prop | src/components/kudos/HeartButton.tsx
+- [x] T128 [BUG] Fix CopyLinkButton highlight — text from muted to `#00101A/60`. Added `variant` prop | src/components/kudos/CopyLinkButton.tsx
+- [x] T129 [BUG] Fix ViewDetailLink highlight — text from muted to `#00101A/60`. Added `variant` prop | src/components/kudos/ViewDetailLink.tsx
+- [x] T130 Run tests — 211 pass, no regressions | all files
+
+**Checkpoint**: Highlight card text colors, borders, backgrounds all correct on light cream bg.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
