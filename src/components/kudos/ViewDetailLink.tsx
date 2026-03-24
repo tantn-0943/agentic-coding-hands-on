@@ -9,7 +9,7 @@ export function ViewDetailLink({ href = '#', variant = 'default' }: ViewDetailLi
   // Figma highlight: 16px/700/#00101A, center
   // Figma default: 14px/500/#999, hover gold
   const colorClass = variant === 'highlight'
-    ? 'text-base font-bold text-[#00101A] hover:text-[#00101A]/80'
+    ? 'text-base font-normal text-[#00101A] hover:text-[#00101A]/80'
     : 'text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary-gold)]'
 
   return (

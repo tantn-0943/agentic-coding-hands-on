@@ -29,7 +29,7 @@ export function CopyLinkButton({ kudosId, variant = 'default' }: CopyLinkButtonP
         onClick={handleCopy}
         className={`flex cursor-pointer items-center gap-1 transition-colors ${
           variant === 'highlight'
-            ? 'text-base font-bold text-[#00101A] hover:text-[#00101A]/80'
+            ? 'text-base font-normal text-[#00101A] hover:text-[#00101A]/80'
             : 'text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary-gold)]'
         }`}
         style={{ fontFamily: 'var(--font-gotham)' }}

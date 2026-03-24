@@ -22,7 +22,7 @@ export function HeartButton({ kudosId, initialHearted, initialCount, isOwnKudos,
   // Figma highlight: count=24px/700/#00101A
   // Figma default: count=16px/500/white
   const countClass = variant === 'highlight'
-    ? 'text-2xl font-bold text-[#00101A]'
+    ? 'text-2xl font-normal text-[#00101A]'
     : 'text-base font-medium text-white'
 
   return (
