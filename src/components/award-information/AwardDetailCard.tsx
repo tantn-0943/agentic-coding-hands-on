@@ -75,7 +75,7 @@ export function AwardDetailCard({ award, sectionId }: Props) {
             {award.name}
           </h2>
         </div>
-        <p className="whitespace-pre-line font-[family-name:var(--font-montserrat)] text-base font-bold leading-6 tracking-[0.5px] text-white">
+        <p className="break-words whitespace-pre-line font-[family-name:var(--font-montserrat)] text-base font-bold leading-6 tracking-[0.5px] text-white">
           {award.description}
         </p>
       </div>

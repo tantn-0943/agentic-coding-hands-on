@@ -243,6 +243,69 @@
 
 ---
 
+## Phase 12: Bug Fix — Filter dropdown error handling
+
+**Purpose**: Improve filter dropdown resilience when API fails
+
+- [x] T096 [BUG] Fix FilterButtons silently swallowing fetch errors for hashtags/departments — add console.error for debugging, confirm dropdowns populate with seed data | src/components/kudos/FilterButtons.tsx
+
+**Checkpoint**: Dropdowns show data from API, errors are logged for debugging.
+
+---
+
+## Phase 13: Bug Fix — API-to-DB mapping audit
+
+**Purpose**: Ensure all Supabase queries use correct FK hints for PostgREST joins
+
+- [x] T097 [BUG] Fix `getLeaderboard()` — add explicit FK hint `secret_boxes_user_id_user_profiles_fkey` to `secret_boxes` → `user_profiles` join, matching the pattern used for `kudos` FKs | src/lib/kudos/queries.ts
+- [x] T098 [BUG] Add migration `20260320000002_add_secret_boxes_user_profiles_fk.sql` — creates FK constraint from `secret_boxes.user_id` to `user_profiles(id)` for PostgREST resolution | supabase/migrations/20260320000002_add_secret_boxes_user_profiles_fk.sql
+
+**Audit results**:
+| API Route | FK Status |
+|-----------|-----------|
+| `/api/kudos` | ✅ Explicit FK hints |
+| `/api/kudos/highlights` | ✅ Reuses getKudosFeed() |
+| `/api/leaderboard/gifts` | ✅ Fixed — added explicit FK hint |
+| `/api/spotlight` | ✅ Explicit FK hint |
+| `/api/users/search` | ✅ Direct query on user_profiles |
+| `/api/users/[id]/preview` | ✅ Direct query on user_profiles |
+| `/api/hashtags` | ✅ Direct query on hashtags |
+| `/api/departments` | ✅ Direct query on departments |
+
+**Checkpoint**: All API queries verified, all FK hints in place, `supabase db reset` runs clean.
+
+---
+
+## Phase 14: Bug Fix — Hashtag/Department dropdown empty data
+
+**Purpose**: Fix hashtag and department dropdowns showing no data
+
+- [x] T099 [BUG] Fix FilterButtons fetch not detecting API errors — add HTTP status check and `error` field check before setting state | src/components/kudos/FilterButtons.tsx
+- [x] T100 [BUG] Add `anon` RLS policies for reference tables (hashtags, departments, app_config) — these are non-sensitive data that should be readable even if session is not properly forwarded | supabase/migrations/20260320000003_fix_hashtags_departments_rls.sql
+
+**Root cause**: RLS policies only allowed `authenticated` role. If the Supabase server client doesn't have a valid session (cookie missing/expired), the query returns 0 rows silently (not an error). Adding `anon` read access ensures reference data is always available.
+
+**Checkpoint**: Hashtag and department dropdowns populate after `supabase db reset`.
+
+---
+
+## Phase 15: Bug Fix — Seed data not loading + invalid UUIDs
+
+**Purpose**: Fix seed data not being applied and invalid UUID format
+
+- [x] T101 [BUG] Fix seed file location — `supabase/config.toml` expects seeds in `supabase/seeds/common/*.sql` but seed was at `supabase/seed.sql`. Copied to `supabase/seeds/common/seed.sql` | supabase/seeds/common/seed.sql
+- [x] T102 [BUG] Fix invalid UUID prefixes — PostgreSQL UUIDs only allow hex chars (0-9, a-f). Changed: `h1` → `a1` (hashtags), `k1` → `c1` (kudos), `u1` → `b1` (users). `d1` (departments) was already valid | supabase/seed.sql, supabase/seeds/common/seed.sql
+
+**Verification results after `supabase db reset`**:
+- DB connection: ✅
+- Seed data loaded: ✅ (8 hashtags, 3 departments, 10 users, 20 kudos, etc.)
+- `/api/hashtags` via Supabase REST: ✅ returns 8 hashtags
+- `/api/departments` via Supabase REST: ✅ returns 3 departments
+
+**Checkpoint**: `supabase db reset` runs clean, all tables populated, REST API returns correct data.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

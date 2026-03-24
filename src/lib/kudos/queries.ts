@@ -154,7 +154,7 @@ export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
     .from('secret_boxes')
     .select(`
       gift_description,
-      user:user_profiles(id, name, avatar_url, title, star_count, kudos_received_count)
+      user:user_profiles!secret_boxes_user_id_user_profiles_fkey(id, name, avatar_url, title, star_count, kudos_received_count)
     `)
     .eq('is_opened', true)
     .not('gift_description', 'is', null)
