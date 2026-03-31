@@ -23,6 +23,22 @@ export async function toggleHeart(kudosId: string): Promise<{ success: boolean; 
     .maybeSingle()
 
   if (existing) {
+    // Read points before deleting (special day hearts have points=2)
+    const { data: heartData } = await supabase
+      .from('hearts')
+      .select('points')
+      .eq('id', existing.id)
+      .single()
+
+    const pointsToRemove = heartData?.points ?? 1
+
+    // Look up the kudos sender (the person who gets recognition)
+    const { data: kudosData } = await supabase
+      .from('kudos')
+      .select('sender_id')
+      .eq('id', kudosId)
+      .single()
+
     // Remove heart
     const { error } = await supabase
       .from('hearts')
@@ -30,6 +46,14 @@ export async function toggleHeart(kudosId: string): Promise<{ success: boolean; 
       .eq('id', existing.id)
 
     if (error) throw new Error(`Failed to remove heart: ${error.message}`)
+
+    // Decrement sender's hearts_received_count
+    if (kudosData?.sender_id) {
+      await supabase.rpc('decrement_hearts_received', {
+        target_user_id: kudosData.sender_id,
+        amount: pointsToRemove,
+      })
+    }
 
     const { count } = await supabase
       .from('hearts')
@@ -61,6 +85,20 @@ export async function toggleHeart(kudosId: string): Promise<{ success: boolean; 
       })
 
     if (error) throw new Error(`Failed to add heart: ${error.message}`)
+
+    // Look up the kudos sender and increment their hearts_received_count
+    const { data: kudosData } = await supabase
+      .from('kudos')
+      .select('sender_id')
+      .eq('id', kudosId)
+      .single()
+
+    if (kudosData?.sender_id) {
+      await supabase.rpc('increment_hearts_received', {
+        target_user_id: kudosData.sender_id,
+        amount: points,
+      })
+    }
 
     const { count } = await supabase
       .from('hearts')
