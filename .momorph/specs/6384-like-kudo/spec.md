@@ -1,6 +1,6 @@
 # Feature Specification: Like Kudo (Heart)
 
-**Frame ID**: `6384` (sub-feature of `2940:13431` Sun* Kudos - Live Board)
+**Frame ID**: `6384` (sub-feature of `2940:13431` Sun\* Kudos - Live Board)
 **Frame Name**: `Like Kudo`
 **File Key**: `9ypp4enmFmdK3YAFJLIu6C`
 **Created**: 2026-03-24
@@ -17,7 +17,7 @@ The Like Kudo (Heart) feature allows authenticated Sunners to express appreciati
 
 ---
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Like a Kudos [P1]
 
@@ -76,23 +76,25 @@ The Like Kudo (Heart) feature allows authenticated Sunners to express appreciati
 
 ### Component: HeartButton
 
-| Property | Value |
-|----------|-------|
-| Layout | `flex items-center gap-1.5` |
-| Icon (not liked) | `heart-outline`, 20x20, color `#999` |
-| Icon (liked) | `heart-filled`, 20x20, color `#F17676` |
-| Count text (default) | SVN-Gotham 16px/500, white |
-| Count text (highlight card) | SVN-Gotham 24px/400, `#00101A` |
-| Disabled state | opacity 0.5, cursor not-allowed |
-| Click animation | scale 1→1.05→0.95→1, 200ms ease-out |
+| Property                    | Value                                  |
+| --------------------------- | -------------------------------------- |
+| Layout                      | `flex items-center gap-1.5`            |
+| Icon (not liked)            | `heart-outline`, 20x20, color `#999`   |
+| Icon (liked)                | `heart-filled`, 20x20, color `#F17676` |
+| Count text (default)        | SVN-Gotham 16px/500, white             |
+| Count text (highlight card) | SVN-Gotham 24px/400, `#00101A`         |
+| Disabled state              | opacity 0.5, cursor not-allowed        |
+| Click animation             | scale 1→1.05→0.95→1, 200ms ease-out    |
 
 See [design-style.md](../2940-13431-sun-kudos-live-board/design-style.md#heart-button) for full visual specs.
 
 ### Contexts where HeartButton appears:
+
 1. **All Kudos feed cards** (KudoPostCard) — default variant
 2. **Highlight Kudos carousel cards** (HighlightKudoCard) — highlight variant (larger count, dark text on light bg)
 
 ### Accessibility
+
 - `aria-label`: "Like this kudos" / "Unlike this kudos" (toggle)
 - `aria-live="polite"` on count span for screen reader updates
 - Keyboard: focusable via Tab, activatable via Enter/Space
@@ -115,30 +117,33 @@ See [design-style.md](../2940-13431-sun-kudos-live-board/design-style.md#heart-b
 | | | UNIQUE(kudos_id, user_id) |
 
 **user_profiles.hearts_received_count** (denormalized counter):
+
 - Incremented/decremented when hearts are added/removed
 - Points: 1 (normal day) or 2 (special day)
 
 **app_config** (key: `special_days`):
+
 - Value: JSON array of date strings, e.g. `["2025-12-25", "2025-11-15"]`
 
 ### RLS Policies (existing)
 
-| Policy | Rule |
-|--------|------|
-| hearts_select | All authenticated users can read |
+| Policy        | Rule                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| hearts_select | All authenticated users can read                                            |
 | hearts_insert | User can insert if `auth.uid() = user_id AND auth.uid() != kudos.sender_id` |
-| hearts_delete | User can delete only their own hearts |
+| hearts_delete | User can delete only their own hearts                                       |
 
 ---
 
 ## API Requirements
 
-| Endpoint | Method | Purpose | Status |
-|----------|--------|---------|--------|
-| `/api/kudos` | POST | Toggle heart (action: "heart") | Existing |
-| `/api/kudos` | GET | Fetch kudos with `has_hearted` and `heart_count` | Existing |
+| Endpoint     | Method | Purpose                                          | Status   |
+| ------------ | ------ | ------------------------------------------------ | -------- |
+| `/api/kudos` | POST   | Toggle heart (action: "heart")                   | Existing |
+| `/api/kudos` | GET    | Fetch kudos with `has_hearted` and `heart_count` | Existing |
 
 ### Heart Toggle Request
+
 ```json
 POST /api/kudos
 {
@@ -148,6 +153,7 @@ POST /api/kudos
 ```
 
 ### Heart Toggle Response
+
 ```json
 {
   "hearted": true,
@@ -161,20 +167,23 @@ POST /api/kudos
 ## State Management
 
 ### Local State (useHeartToggle hook)
-| State | Type | Initial | Purpose |
-|-------|------|---------|---------|
-| hearted | boolean | from server | Current like status |
-| count | number | from server | Current heart count |
-| disabled | boolean | isOwnKudos | Prevent self-like |
-| isLoading | boolean | false | Prevent rapid double-click during API call |
+
+| State     | Type    | Initial     | Purpose                                    |
+| --------- | ------- | ----------- | ------------------------------------------ |
+| hearted   | boolean | from server | Current like status                        |
+| count     | number  | from server | Current heart count                        |
+| disabled  | boolean | isOwnKudos  | Prevent self-like                          |
+| isLoading | boolean | false       | Prevent rapid double-click during API call |
 
 ### Optimistic Update Flow
+
 1. User clicks heart → set `isLoading=true`, immediately toggle icon + count
 2. Send API request in background
 3. On success → set `isLoading=false`, keep state
 4. On failure → set `isLoading=false`, rollback to previous state
 
 ### Error State
+
 - On API failure: rollback UI optimistic update, keep heart in previous state
 - No toast/error message needed — silent rollback is sufficient for toggle actions
 
