@@ -1,57 +1,67 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { createClient } from '@/libs/supabase/client'
+import { useState } from "react";
+import Image from "next/image";
+import { createClient } from "@/libs/supabase/client";
 
 type LoginButtonProps = {
-  initialError?: string
-  returnTo?: string
-}
+  initialError?: string;
+  returnTo?: string;
+  onRedirect?: (url: string) => void;
+};
 
 const ERROR_MESSAGES: Record<string, string> = {
-  auth_failed: 'Authentication failed. Please try again.',
-}
+  auth_failed: "Authentication failed. Please try again.",
+};
 
 function getErrorMessage(code: string): string {
-  return ERROR_MESSAGES[code] ?? 'An error occurred. Please try again.'
+  return ERROR_MESSAGES[code] ?? "An error occurred. Please try again.";
 }
 
-export default function LoginButton({ initialError, returnTo }: LoginButtonProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [clientError, setClientError] = useState<string | null>(null)
+export default function LoginButton({
+  initialError,
+  returnTo,
+  onRedirect,
+}: LoginButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [clientError, setClientError] = useState<string | null>(null);
 
   const errorMessage = clientError
     ? getErrorMessage(clientError)
     : initialError
       ? getErrorMessage(initialError)
-      : null
+      : null;
 
   async function handleLogin() {
-    setIsLoading(true)
-    setClientError(null)
+    setIsLoading(true);
+    setClientError(null);
 
-    const supabase = createClient()
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
+    const supabase = createClient();
+    const siteUrl = window.location.origin;
     const callbackUrl = returnTo
       ? `${siteUrl}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`
-      : `${siteUrl}/auth/callback`
+      : `${siteUrl}/auth/callback`;
 
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
       options: {
         redirectTo: callbackUrl,
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent',
-        },
+        skipBrowserRedirect: true,
       },
-    })
+    });
 
-    if (error) {
-      setClientError('auth_failed')
-      setIsLoading(false)
+    if (error || !data?.url) {
+      setClientError("auth_failed");
+      setIsLoading(false);
+      return;
     }
+
+    if (onRedirect) {
+      onRedirect(data.url);
+      return;
+    }
+
+    window.location.assign(data.url);
     // On success, keep loading=true while redirect happens
   }
 
@@ -102,5 +112,5 @@ export default function LoginButton({ initialError, returnTo }: LoginButtonProps
         )}
       </button>
     </div>
-  )
+  );
 }
