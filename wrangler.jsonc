@@ -14,23 +14,23 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
-    "directory": ".open-next/assets"
+    "directory": ".open-next/assets",
   },
   "images": {
     // Enable image optimization
     // see https://opennext.js.org/cloudflare/howtos/image
-    "binding": "IMAGES"
+    "binding": "IMAGES",
   },
   "services": [
     {
       // Self-reference service binding, the service name must match the worker name
       // see https://opennext.js.org/cloudflare/caching
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "agentic-coding-live-demo"
-    }
+      "service": "agentic-coding-live-demo",
+    },
   ],
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   /**
    * Smart Placement
@@ -52,13 +52,24 @@
   "env": {
     "staging": {
       "vars": {
-        "NEXTJS_ENV": "staging"
-      }
+        "NEXTJS_ENV": "staging",
+      },
     },
     "production": {
+      "name": "agentic-coding-live-demo",
+      "images": {
+        "binding": "IMAGES",
+      },
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "agentic-coding-live-demo",
+        },
+      ],
       "vars": {
-        "NEXTJS_ENV": "production"
-      }
-    }
-  }
+        "NEXTJS_ENV": "production",
+        "NEXT_PUBLIC_SITE_URL": "https://agentic-coding-live-demo.tranngoctan.workers.dev",
+      },
+    },
+  },
 }

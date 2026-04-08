@@ -5,14 +5,15 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:cloudflare": "node scripts/run-cloudflare-command.mjs build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "node scripts/run-cloudflare-command.mjs deploy",
+    "upload": "node scripts/run-cloudflare-command.mjs upload",
+    "preview": "node scripts/run-cloudflare-command.mjs preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "supabase:start": "env $(grep -v '^#' .env.development | xargs) supabase start",
     "supabase:stop": "supabase stop"
